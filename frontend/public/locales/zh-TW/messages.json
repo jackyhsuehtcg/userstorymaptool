@@ -1,0 +1,65 @@
+{
+  "notifications": {
+    "nodeSaved": "節點已保存",
+    "nodeDeleted": "節點已刪除",
+    "nodeAdded": "節點已新增",
+    "edgeAdded": "關係已新增",
+    "edgeDeleted": "關係已刪除",
+    "importSuccess": "匯入成功",
+    "exportSuccess": "匯出成功",
+    "syncSuccess": "同步成功",
+    "unsavedChanges": "存在未保存的變更"
+  },
+  "confirmations": {
+    "deleteNode": "確定要刪除此節點？此操作會刪除所有相關關係。",
+    "deleteEdge": "確定要刪除此關係？",
+    "clearAll": "確定要清除所有節點和關係？",
+    "leaveWithoutSaving": "存在未保存的變更，是否確定離開？",
+    "assignInactiveTeam": "該團隊已停用，確定要指派嗎？"
+  },
+  "errors": {
+    "loadFailed": "載入失敗，請檢查網路連線",
+    "saveFailed": "保存失敗",
+    "importFailed": "匯入失敗",
+    "exportFailed": "匯出失敗",
+    "syncFailed": "同步失敗",
+    "invalidFile": "無效的檔案格式",
+    "missingTeamId": "缺失必需的團隊 ID",
+    "permissionDenied": "權限不足，無法執行此操作",
+    "sessionExpired": "登入已過期，請重新登入",
+    "networkError": "網路錯誤",
+    "unknownError": "未知錯誤",
+    "ancestorPathError": "節點層級關係存在迴圈",
+    "singleParentError": "節點只能有一個父節點",
+    "crossEdgeError": "跨邊關係無效",
+    "teamValidationError": "團隊 ID 驗證失敗"
+  },
+  "warnings": {
+    "unsyncedTeams": "部分團隊資訊未同步",
+    "cacheExpired": "團隊資訊快取已過期",
+    "importWarnings": "匯入完成，存在部分警告",
+    "inactiveTeamNodes": "以下節點指派的團隊已停用，需要重新指派：",
+    "missingTranslation": "翻譯缺失，使用預設值"
+  },
+  "hints": {
+    "dragToMove": "拖動節點以移動位置",
+    "clickToSelect": "點擊節點以選擇",
+    "rightPanelInfo": "右側面板顯示選中節點的詳細資訊",
+    "useSearchToFilter": "使用搜尋面板篩選節點",
+    "importExportGuide": "匯入和匯出 JSON 格式的故事地圖"
+  },
+  "tooltips": {
+    "undo": "復原（Ctrl+Z）",
+    "redo": "重做（Ctrl+Y）",
+    "zoom": "使用滑鼠滾輪或按鈕縮放",
+    "search": "搜尋節點",
+    "export": "匯出為 JSON 檔案",
+    "import": "從 JSON 檔案匯入"
+  },
+  "validation": {
+    "required": "此欄位為必填項",
+    "invalidFormat": "格式無效",
+    "tooLong": "輸入過長",
+    "tooShort": "輸入過短"
+  }
+}

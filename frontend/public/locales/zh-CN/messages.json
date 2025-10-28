@@ -1,0 +1,65 @@
+{
+  "notifications": {
+    "nodeSaved": "节点已保存",
+    "nodeDeleted": "节点已删除",
+    "nodeAdded": "节点已添加",
+    "edgeAdded": "关系已添加",
+    "edgeDeleted": "关系已删除",
+    "importSuccess": "导入成功",
+    "exportSuccess": "导出成功",
+    "syncSuccess": "同步成功",
+    "unsavedChanges": "存在未保存的更改"
+  },
+  "confirmations": {
+    "deleteNode": "确定要删除此节点？此操作会删除所有相关关系。",
+    "deleteEdge": "确定要删除此关系？",
+    "clearAll": "确定要清除所有节点和关系？",
+    "leaveWithoutSaving": "存在未保存的更改，是否确定离开？",
+    "assignInactiveTeam": "该团队已禁用，确定要指派吗？"
+  },
+  "errors": {
+    "loadFailed": "加载失败，请检查网络连接",
+    "saveFailed": "保存失败",
+    "importFailed": "导入失败",
+    "exportFailed": "导出失败",
+    "syncFailed": "同步失败",
+    "invalidFile": "无效的文件格式",
+    "missingTeamId": "缺失必需的团队 ID",
+    "permissionDenied": "权限不足，无法执行此操作",
+    "sessionExpired": "登录已过期，请重新登录",
+    "networkError": "网络错误",
+    "unknownError": "未知错误",
+    "ancestorPathError": "节点层级关系存在循环",
+    "singleParentError": "节点只能有一个父节点",
+    "crossEdgeError": "跨边关系无效",
+    "teamValidationError": "团队 ID 验证失败"
+  },
+  "warnings": {
+    "unsyncedTeams": "部分团队信息未同步",
+    "cacheExpired": "团队信息缓存已过期",
+    "importWarnings": "导入完成，存在部分警告",
+    "inactiveTeamNodes": "以下节点指派的团队已禁用，需要重新指派：",
+    "missingTranslation": "翻译缺失，使用默认值"
+  },
+  "hints": {
+    "dragToMove": "拖动节点以移动位置",
+    "clickToSelect": "点击节点以选择",
+    "rightPanelInfo": "右侧面板显示选中节点的详细信息",
+    "useSearchToFilter": "使用搜索面板筛选节点",
+    "importExportGuide": "导入和导出 JSON 格式的故事地图"
+  },
+  "tooltips": {
+    "undo": "撤销（Ctrl+Z）",
+    "redo": "重做（Ctrl+Y）",
+    "zoom": "使用鼠标滚轮或按钮缩放",
+    "search": "搜索节点",
+    "export": "导出为 JSON 文件",
+    "import": "从 JSON 文件导入"
+  },
+  "validation": {
+    "required": "此字段为必填项",
+    "invalidFormat": "格式无效",
+    "tooLong": "输入过长",
+    "tooShort": "输入过短"
+  }
+}

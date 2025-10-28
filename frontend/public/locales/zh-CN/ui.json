@@ -1,0 +1,72 @@
+{
+  "appTitle": "用户故事地图工具",
+  "toolbar": {
+    "addNode": "+ 添加节点",
+    "clearAll": "清除全部",
+    "undo": "撤销",
+    "redo": "重做",
+    "import": "导入",
+    "export": "导出",
+    "search": "搜索",
+    "language": "语言"
+  },
+  "canvas": {
+    "noNodes": "暂无节点",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "fitView": "适应视图"
+  },
+  "editPanel": {
+    "selectNode": "请选择节点进行编辑",
+    "title": "编辑节点",
+    "id": "节点 ID",
+    "summary": "摘要",
+    "summaryPlaceholder": "输入节点摘要",
+    "description": "描述",
+    "descriptionPlaceholder": "输入节点描述",
+    "team": "团队",
+    "teamPlaceholder": "-- 选择团队 --",
+    "ticketLabels": "票证标签",
+    "ticketLabelsPlaceholder": "输入标签（逗号分隔）",
+    "save": "保存",
+    "delete": "删除",
+    "cancel": "取消"
+  },
+  "searchPanel": {
+    "title": "搜索",
+    "fullText": "全文搜索",
+    "team": "团队",
+    "ticketLabel": "票证",
+    "customLabel": "自定义标签",
+    "dateRange": "时间范围",
+    "parentNode": "父节点",
+    "crossEdge": "跨边关系",
+    "search": "搜索",
+    "clear": "清除",
+    "noResults": "未找到匹配的节点"
+  },
+  "teamInfo": {
+    "title": "团队信息",
+    "lastSync": "最后同步时间",
+    "sync": "同步",
+    "manage": "管理团队",
+    "missingTeamId": "缺失团队 ID 的节点"
+  },
+  "navigation": {
+    "profile": "我的账户",
+    "roles": "角色",
+    "logout": "登出",
+    "settings": "设置"
+  },
+  "buttons": {
+    "ok": "确定",
+    "cancel": "取消",
+    "close": "关闭",
+    "save": "保存",
+    "delete": "删除",
+    "retry": "重试"
+  },
+  "loading": "加载中...",
+  "error": "出错了",
+  "success": "成功"
+}

@@ -1,0 +1,72 @@
+{
+  "appTitle": "User Story Map Tool",
+  "toolbar": {
+    "addNode": "+ Add Node",
+    "clearAll": "Clear All",
+    "undo": "Undo",
+    "redo": "Redo",
+    "import": "Import",
+    "export": "Export",
+    "search": "Search",
+    "language": "Language"
+  },
+  "canvas": {
+    "noNodes": "No nodes yet",
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "fitView": "Fit View"
+  },
+  "editPanel": {
+    "selectNode": "Select a node to edit",
+    "title": "Edit Node",
+    "id": "Node ID",
+    "summary": "Summary",
+    "summaryPlaceholder": "Enter node summary",
+    "description": "Description",
+    "descriptionPlaceholder": "Enter node description",
+    "team": "Team",
+    "teamPlaceholder": "-- Select Team --",
+    "ticketLabels": "Ticket Labels",
+    "ticketLabelsPlaceholder": "Enter labels (comma-separated)",
+    "save": "Save",
+    "delete": "Delete",
+    "cancel": "Cancel"
+  },
+  "searchPanel": {
+    "title": "Search",
+    "fullText": "Full Text Search",
+    "team": "Team",
+    "ticketLabel": "Ticket",
+    "customLabel": "Custom Label",
+    "dateRange": "Date Range",
+    "parentNode": "Parent Node",
+    "crossEdge": "Cross Edge",
+    "search": "Search",
+    "clear": "Clear",
+    "noResults": "No matching nodes found"
+  },
+  "teamInfo": {
+    "title": "Team Information",
+    "lastSync": "Last Sync Time",
+    "sync": "Sync",
+    "manage": "Manage Teams",
+    "missingTeamId": "Nodes with Missing Team ID"
+  },
+  "navigation": {
+    "profile": "My Account",
+    "roles": "Roles",
+    "logout": "Logout",
+    "settings": "Settings"
+  },
+  "buttons": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "retry": "Retry"
+  },
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success"
+}

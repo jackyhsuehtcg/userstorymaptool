@@ -1,0 +1,65 @@
+{
+  "notifications": {
+    "nodeSaved": "Node saved",
+    "nodeDeleted": "Node deleted",
+    "nodeAdded": "Node added",
+    "edgeAdded": "Edge added",
+    "edgeDeleted": "Edge deleted",
+    "importSuccess": "Import successful",
+    "exportSuccess": "Export successful",
+    "syncSuccess": "Sync successful",
+    "unsavedChanges": "You have unsaved changes"
+  },
+  "confirmations": {
+    "deleteNode": "Are you sure you want to delete this node? This will remove all related edges.",
+    "deleteEdge": "Are you sure you want to delete this edge?",
+    "clearAll": "Are you sure you want to clear all nodes and edges?",
+    "leaveWithoutSaving": "You have unsaved changes, are you sure you want to leave?",
+    "assignInactiveTeam": "This team is inactive, are you sure you want to assign it?"
+  },
+  "errors": {
+    "loadFailed": "Failed to load, please check your network connection",
+    "saveFailed": "Save failed",
+    "importFailed": "Import failed",
+    "exportFailed": "Export failed",
+    "syncFailed": "Sync failed",
+    "invalidFile": "Invalid file format",
+    "missingTeamId": "Missing required team ID",
+    "permissionDenied": "Permission denied, you cannot perform this action",
+    "sessionExpired": "Your session has expired, please login again",
+    "networkError": "Network error",
+    "unknownError": "Unknown error",
+    "ancestorPathError": "Circular dependency detected in node hierarchy",
+    "singleParentError": "A node can only have one parent",
+    "crossEdgeError": "Invalid cross edge relationship",
+    "teamValidationError": "Team ID validation failed"
+  },
+  "warnings": {
+    "unsyncedTeams": "Some team information is not synced",
+    "cacheExpired": "Team information cache has expired",
+    "importWarnings": "Import completed with some warnings",
+    "inactiveTeamNodes": "The following nodes are assigned to inactive teams and need to be reassigned:",
+    "missingTranslation": "Translation missing, using default value"
+  },
+  "hints": {
+    "dragToMove": "Drag nodes to move them",
+    "clickToSelect": "Click a node to select it",
+    "rightPanelInfo": "The right panel shows details of the selected node",
+    "useSearchToFilter": "Use the search panel to filter nodes",
+    "importExportGuide": "Import and export story maps in JSON format"
+  },
+  "tooltips": {
+    "undo": "Undo (Ctrl+Z)",
+    "redo": "Redo (Ctrl+Y)",
+    "zoom": "Use mouse wheel or buttons to zoom",
+    "search": "Search nodes",
+    "export": "Export as JSON file",
+    "import": "Import from JSON file"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidFormat": "Invalid format",
+    "tooLong": "Input is too long",
+    "tooShort": "Input is too short"
+  }
+}

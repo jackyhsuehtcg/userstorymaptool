@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/tcrt.scss'
+import './i18n' // Initialize i18next
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(

@@ -1,0 +1,72 @@
+{
+  "appTitle": "使用者故事地圖工具",
+  "toolbar": {
+    "addNode": "+ 新增節點",
+    "clearAll": "清除全部",
+    "undo": "復原",
+    "redo": "重做",
+    "import": "匯入",
+    "export": "匯出",
+    "search": "搜尋",
+    "language": "語言"
+  },
+  "canvas": {
+    "noNodes": "暫無節點",
+    "zoomIn": "放大",
+    "zoomOut": "縮小",
+    "fitView": "適應檢視"
+  },
+  "editPanel": {
+    "selectNode": "請選擇節點進行編輯",
+    "title": "編輯節點",
+    "id": "節點 ID",
+    "summary": "摘要",
+    "summaryPlaceholder": "輸入節點摘要",
+    "description": "描述",
+    "descriptionPlaceholder": "輸入節點描述",
+    "team": "團隊",
+    "teamPlaceholder": "-- 選擇團隊 --",
+    "ticketLabels": "票證標籤",
+    "ticketLabelsPlaceholder": "輸入標籤（逗號分隔）",
+    "save": "保存",
+    "delete": "刪除",
+    "cancel": "取消"
+  },
+  "searchPanel": {
+    "title": "搜尋",
+    "fullText": "全文搜尋",
+    "team": "團隊",
+    "ticketLabel": "票證",
+    "customLabel": "自訂標籤",
+    "dateRange": "時間範圍",
+    "parentNode": "父節點",
+    "crossEdge": "跨邊關係",
+    "search": "搜尋",
+    "clear": "清除",
+    "noResults": "未找到匹配的節點"
+  },
+  "teamInfo": {
+    "title": "團隊資訊",
+    "lastSync": "最後同步時間",
+    "sync": "同步",
+    "manage": "管理團隊",
+    "missingTeamId": "缺失團隊 ID 的節點"
+  },
+  "navigation": {
+    "profile": "我的帳戶",
+    "roles": "角色",
+    "logout": "登出",
+    "settings": "設定"
+  },
+  "buttons": {
+    "ok": "確定",
+    "cancel": "取消",
+    "close": "關閉",
+    "save": "保存",
+    "delete": "刪除",
+    "retry": "重試"
+  },
+  "loading": "載入中...",
+  "error": "出錯",
+  "success": "成功"
+}
