@@ -1,0 +1,37 @@
+// TCRT 客製設計 Token
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$warning-color: #ffc107;
+$info-color: #17a2b8;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+
+$font-family-base: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.5;
+
+$border-radius: 0.375rem;
+$border-radius-sm: 0.25rem;
+$border-radius-lg: 0.5rem;
+
+// 自訂樣式覆寫
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+.card {
+  border-radius: $border-radius;
+}
+
+// 其他 TCRT 特定樣式
+.tcrt-node {
+  background: $light-color;
+  border: 1px solid $primary-color;
+}
+
+.tcrt-edge {
+  stroke: $primary-color;
+}
