@@ -6,7 +6,7 @@
 3. [x] 建立 NestJS 後端專案並劃分 Auth、Teams、StoryMap、Tokens、Audit、Config 等模組化結構。
 4. [x] 設計 YAML 設定載入與環境變數覆寫機制，提供 `config/default.example.yaml`，更新 `.gitignore` 排除敏感檔。
 5. [x] 建立 MongoDB 連線設定、健康檢查與 replica set 支援，啟用交易（session）。
-6. [ ] 定義 nodes、edges、auditLogs、apiTokens Schema 與索引策略，撰寫 migration framework 及範例腳本。
+6. [x] 定義 nodes、edges、auditLogs、apiTokens Schema 與索引策略，撰寫 migration framework 及範例腳本。
 7. [ ] 實作資料驗證層，涵蓋 ancestorPath 防迴圈、單一父節點約束、Cross Edge 參照、TeamId 驗證。
 8. [ ] 整合 TCRT OAuth/OIDC 流程與 API 客戶端（登入、登出、`GET /api/teams`、審計 API）。
 

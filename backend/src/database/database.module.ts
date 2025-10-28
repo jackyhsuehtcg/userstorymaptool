@@ -3,6 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from './database.service';
 import { DatabaseController } from './database.controller';
+import { MigrationService } from './migrations/migration.service';
+import { NodeSchema } from '../story-map/schemas/node.schema';
+import { EdgeSchema } from '../story-map/schemas/edge.schema';
+import { AuditLogSchema } from '../audit/schemas/audit-log.schema';
+import { ApiTokenSchema } from '../tokens/schemas/api-token.schema';
 
 @Module({
   imports: [
@@ -47,9 +52,16 @@ import { DatabaseController } from './database.controller';
       },
       inject: [ConfigService],
     }),
+    // Register schemas
+    MongooseModule.forFeature([
+      { name: 'Node', schema: NodeSchema },
+      { name: 'Edge', schema: EdgeSchema },
+      { name: 'AuditLog', schema: AuditLogSchema },
+      { name: 'ApiToken', schema: ApiTokenSchema },
+    ]),
   ],
   controllers: [DatabaseController],
-  providers: [DatabaseService],
-  exports: [DatabaseService],
+  providers: [DatabaseService, MigrationService],
+  exports: [DatabaseService, MigrationService],
 })
 export class DatabaseModule {}
