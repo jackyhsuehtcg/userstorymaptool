@@ -2,7 +2,7 @@
 
 ## 1. 基礎架構與共用設定
 1. [x] 建立 React + TypeScript 前端專案，整合 React Flow、Zustand（含時間旅行中介層）、Bootstrap 5 與 TCRT 客製 SCSS。
-2. [ ] 設定 react-i18next 架構與 `locales/<lang>.json` 範本，定義 `ui`、`team`、`messages` 命名空間與 fallback 策略。
+2. [x] 設定 react-i18next 架構與 `locales/<lang>.json` 範本，定義 `ui`、`team`、`messages` 命名空間與 fallback 策略。
 3. [ ] 建立 NestJS 後端專案並劃分 Auth、Teams、StoryMap、Tokens、Audit、Config 等模組化結構。
 4. [ ] 設計 YAML 設定載入與環境變數覆寫機制，提供 `config/default.example.yaml`，更新 `.gitignore` 排除敏感檔。
 5. [ ] 建立 MongoDB 連線設定、健康檢查與 replica set 支援，啟用交易（session）。
