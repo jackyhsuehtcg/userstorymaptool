@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useMapStore } from '../stores/mapStore';
 import './SearchPanel.scss';
 
@@ -102,7 +104,7 @@ export const SearchPanel: React.FC = () => {
           aria-controls="searchFilters"
         >
           <span className="search-title">{t('searchPanel.title')}</span>
-          <span className="search-toggle">▼</span>
+          <FontAwesomeIcon icon={faChevronDown} className="search-toggle" />
         </button>
 
         <div id="searchFilters" className="search-filters collapse show">
@@ -202,13 +204,17 @@ export const SearchPanel: React.FC = () => {
             <button
               className="btn btn-primary btn-sm"
               onClick={handleSearch}
+              title="Search"
             >
+              <FontAwesomeIcon icon={faSearch} />
               {t('searchPanel.search')}
             </button>
             <button
               className="btn btn-outline-secondary btn-sm"
               onClick={handleClear}
+              title="Clear"
             >
+              <FontAwesomeIcon icon={faXmark} />
               {t('searchPanel.clear')}
             </button>
           </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobe, faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '../i18n';
 import './LanguageSwitcher.scss';
 
@@ -30,9 +32,9 @@ export const LanguageSwitcher: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         title="Change language"
       >
-        <span className="language-icon">🌐</span>
+        <FontAwesomeIcon icon={faGlobe} className="language-icon" />
         <span className="language-label">{displayLanguage}</span>
-        <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
+        <FontAwesomeIcon icon={faChevronDown} className={`dropdown-arrow ${isOpen ? 'open' : ''}`} />
       </button>
 
       {isOpen && (
@@ -48,7 +50,7 @@ export const LanguageSwitcher: React.FC = () => {
               onClick={() => handleLanguageChange(code)}
             >
               {name}
-              {code === currentLanguage && <span className="checkmark">✓</span>}
+              {code === currentLanguage && <FontAwesomeIcon icon={faCheck} className="checkmark" />}
             </button>
           ))}
         </div>

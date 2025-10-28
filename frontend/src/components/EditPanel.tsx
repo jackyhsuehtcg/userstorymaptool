@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClipboard, faPencil, faFloppyDisk, faBan, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useMapStore } from '../stores/mapStore';
 import { notifySuccess, notifyError } from '../stores/notificationStore';
 import './EditPanel.scss';
@@ -91,7 +93,7 @@ export const EditPanel: React.FC = () => {
     return (
       <div className="edit-panel empty-state">
         <div className="empty-state-content">
-          <p className="empty-state-icon">📋</p>
+          <FontAwesomeIcon icon={faClipboard} className="empty-state-icon" />
           <p className="empty-state-text">{t('editPanel.selectNode')}</p>
         </div>
       </div>
@@ -106,8 +108,9 @@ export const EditPanel: React.FC = () => {
           <button
             className="btn btn-sm btn-outline-primary"
             onClick={() => setIsEditing(true)}
+            title="Edit"
           >
-            Edit
+            <FontAwesomeIcon icon={faPencil} />
           </button>
         )}
       </div>
@@ -192,19 +195,19 @@ export const EditPanel: React.FC = () => {
       <div className="edit-panel-footer">
         {isEditing ? (
           <>
-            <button className="btn btn-primary btn-sm" onClick={handleSave}>
-              {t('editPanel.save')}
+            <button className="btn btn-primary btn-sm" onClick={handleSave} title="Save">
+              <FontAwesomeIcon icon={faFloppyDisk} />
             </button>
-            <button className="btn btn-outline-secondary btn-sm" onClick={handleCancel}>
-              {t('editPanel.cancel')}
+            <button className="btn btn-outline-secondary btn-sm" onClick={handleCancel} title="Cancel">
+              <FontAwesomeIcon icon={faBan} />
             </button>
-            <button className="btn btn-danger btn-sm ms-auto" onClick={handleDelete}>
-              {t('editPanel.delete')}
+            <button className="btn btn-danger btn-sm ms-auto" onClick={handleDelete} title="Delete">
+              <FontAwesomeIcon icon={faTrash} />
             </button>
           </>
         ) : (
-          <button className="btn btn-danger btn-sm" onClick={handleDelete}>
-            {t('editPanel.delete')}
+          <button className="btn btn-danger btn-sm" onClick={handleDelete} title="Delete">
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         )}
       </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faUpload, faDownload, faTrash, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useMapStore } from '../stores/mapStore';
 import { notifySuccess, notifyInfo } from '../stores/notificationStore';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -71,7 +73,7 @@ export const Toolbar: React.FC = () => {
             disabled={isLoading}
             title={t('toolbar.addNode')}
           >
-            <span className="btn-icon">+</span>
+            <FontAwesomeIcon icon={faPlus} className="btn-icon" />
             {t('toolbar.addNode')}
           </button>
 
@@ -83,7 +85,7 @@ export const Toolbar: React.FC = () => {
             disabled={isLoading}
             title={t('toolbar.import')}
           >
-            <span className="btn-icon">⬆</span>
+            <FontAwesomeIcon icon={faUpload} className="btn-icon" />
             {t('toolbar.import')}
           </button>
 
@@ -93,7 +95,7 @@ export const Toolbar: React.FC = () => {
             disabled={isLoading}
             title={t('toolbar.export')}
           >
-            <span className="btn-icon">⬇</span>
+            <FontAwesomeIcon icon={faDownload} className="btn-icon" />
             {t('toolbar.export')}
           </button>
 
@@ -105,15 +107,13 @@ export const Toolbar: React.FC = () => {
             disabled={isLoading}
             title={t('toolbar.clearAll')}
           >
-            <span className="btn-icon">✕</span>
+            <FontAwesomeIcon icon={faTrash} className="btn-icon" />
             {t('toolbar.clearAll')}
           </button>
 
           {isLoading && (
             <div className="toolbar-spinner">
-              <span className="spinner-border spinner-border-sm" role="status">
-                <span className="visually-hidden">{t('loading')}</span>
-              </span>
+              <FontAwesomeIcon icon={faCircleNotch} spin className="spinner-icon" />
             </div>
           )}
         </div>

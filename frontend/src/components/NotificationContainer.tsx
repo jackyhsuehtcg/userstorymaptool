@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faXmarkCircle, faExclamationCircle, faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import type { Notification, NotificationType } from '../stores/notificationStore';
 import { useNotificationStore } from '../stores/notificationStore';
 import './NotificationContainer.scss';
@@ -13,22 +15,22 @@ const Toast: React.FC<{
   const getIcon = (type: NotificationType) => {
     switch (type) {
       case 'success':
-        return '✓';
+        return faCheckCircle;
       case 'error':
-        return '✕';
+        return faXmarkCircle;
       case 'warning':
-        return '⚠';
+        return faExclamationCircle;
       case 'info':
-        return 'ⓘ';
+        return faInfoCircle;
       default:
-        return '•';
+        return faInfoCircle;
     }
   };
 
   return (
     <div className={`toast toast-${notification.type}`} role="alert">
       <div className="toast-content">
-        <span className="toast-icon">{getIcon(notification.type)}</span>
+        <FontAwesomeIcon icon={getIcon(notification.type)} className="toast-icon" />
         <div className="toast-message">
           {notification.title && (
             <div className="toast-title">{notification.title}</div>
@@ -51,7 +53,7 @@ const Toast: React.FC<{
         onClick={() => onRemove(notification.id)}
         aria-label="Close"
       >
-        ×
+        <FontAwesomeIcon icon={faTimes} />
       </button>
     </div>
   );

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPalette, faBell, faWrench, faPencil, faMagnifyingGlass, faCodeBranch, faClipboardList, faCheck, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import { useMapStore } from '../stores/mapStore';
 import {
   notifySuccess,
@@ -73,32 +75,32 @@ export const DemoPage: React.FC = () => {
     {
       id: 'overview',
       title: 'Overview',
-      icon: '📋',
+      icon: faClipboardList,
     },
     {
       id: 'notifications',
       title: 'Notifications',
-      icon: '🔔',
+      icon: faBell,
     },
     {
       id: 'toolbar',
       title: 'Toolbar',
-      icon: '🛠️',
+      icon: faWrench,
     },
     {
       id: 'editpanel',
       title: 'Edit Panel',
-      icon: '✏️',
+      icon: faPencil,
     },
     {
       id: 'searchpanel',
       title: 'Search Panel',
-      icon: '🔍',
+      icon: faMagnifyingGlass,
     },
     {
       id: 'layout',
       title: 'Full Layout',
-      icon: '📐',
+      icon: faCodeBranch,
     },
   ];
 
@@ -142,7 +144,7 @@ export const DemoPage: React.FC = () => {
                 }`}
                 onClick={() => setActiveSection(section.id)}
               >
-                <span className="nav-icon">{section.icon}</span>
+                <FontAwesomeIcon icon={section.icon} className="nav-icon" />
                 <span className="nav-label">{section.title}</span>
               </button>
             ))}
@@ -174,74 +176,74 @@ const OverviewSection: React.FC = () => (
 
     <div className="feature-grid">
       <div className="feature-card">
-        <div className="feature-icon">🔔</div>
+        <FontAwesomeIcon icon={faBell} className="feature-icon" />
         <h3>Notification System</h3>
         <p>Global toast notifications with 4 types and auto-dismiss</p>
         <ul>
-          <li>✓ Success, Error, Warning, Info</li>
-          <li>✓ Auto-dismiss with timer</li>
-          <li>✓ Persistent error mode</li>
-          <li>✓ Progress animation</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Success, Error, Warning, Info</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Auto-dismiss with timer</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Persistent error mode</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Progress animation</li>
         </ul>
       </div>
 
       <div className="feature-card">
-        <div className="feature-icon">✏️</div>
+        <FontAwesomeIcon icon={faPencil} className="feature-icon" />
         <h3>Edit Panel</h3>
         <p>Professional node editing interface</p>
         <ul>
-          <li>✓ View & Edit modes</li>
-          <li>✓ Form validation</li>
-          <li>✓ Tag badges</li>
-          <li>✓ Delete confirmation</li>
+          <li><FontAwesomeIcon icon={faCheck} /> View & Edit modes</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Form validation</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Tag badges</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Delete confirmation</li>
         </ul>
       </div>
 
       <div className="feature-card">
-        <div className="feature-icon">🔍</div>
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="feature-icon" />
         <h3>Search Panel</h3>
         <p>Advanced filtering with multiple options</p>
         <ul>
-          <li>✓ Full-text search</li>
-          <li>✓ Multi-criteria filters</li>
-          <li>✓ Collapsible accordion</li>
-          <li>✓ Result navigation</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Full-text search</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Multi-criteria filters</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Collapsible accordion</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Result navigation</li>
         </ul>
       </div>
 
       <div className="feature-card">
-        <div className="feature-icon">🛠️</div>
+        <FontAwesomeIcon icon={faWrench} className="feature-icon" />
         <h3>Toolbar</h3>
         <p>Action buttons and controls</p>
         <ul>
-          <li>✓ Add node action</li>
-          <li>✓ Import/Export</li>
-          <li>✓ Clear all with confirmation</li>
-          <li>✓ Language switcher</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Add node action</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Import/Export</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Clear all with confirmation</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Language switcher</li>
         </ul>
       </div>
 
       <div className="feature-card">
-        <div className="feature-icon">📐</div>
+        <FontAwesomeIcon icon={faLayerGroup} className="feature-icon" />
         <h3>Responsive Layout</h3>
         <p>Professional left-right split layout</p>
         <ul>
-          <li>✓ Bootstrap 5 grid</li>
-          <li>✓ Mobile adaptive</li>
-          <li>✓ Flexible sidebars</li>
-          <li>✓ TCRT design tokens</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Bootstrap 5 grid</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Mobile adaptive</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Flexible sidebars</li>
+          <li><FontAwesomeIcon icon={faCheck} /> TCRT design tokens</li>
         </ul>
       </div>
 
       <div className="feature-card">
-        <div className="feature-icon">🎨</div>
+        <FontAwesomeIcon icon={faPalette} className="feature-icon" />
         <h3>Design System</h3>
         <p>TCRT color palette and styling</p>
         <ul>
-          <li>✓ Primary colors</li>
-          <li>✓ Spacing standards</li>
-          <li>✓ Typography</li>
-          <li>✓ Animations</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Primary colors</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Spacing standards</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Typography</li>
+          <li><FontAwesomeIcon icon={faCheck} /> Animations</li>
         </ul>
       </div>
     </div>

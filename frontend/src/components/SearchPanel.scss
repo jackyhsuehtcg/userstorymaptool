@@ -35,6 +35,8 @@
       font-size: 11px;
       color: #666;
       transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
     }
 
     &[aria-expanded="false"] .search-toggle {
