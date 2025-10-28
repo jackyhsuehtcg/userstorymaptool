@@ -1,0 +1,220 @@
+@import '../styles/tcrt.scss';
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 20px;
+
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+  }
+
+  .toolbar-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: $primary-color;
+    white-space: nowrap;
+  }
+
+  .toolbar-button-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .btn {
+      font-size: 13px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+
+      .btn-icon {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    .btn-primary {
+      background-color: $primary-color;
+      border-color: $primary-color;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: darken($primary-color, 5%);
+        border-color: darken($primary-color, 5%);
+      }
+    }
+
+    .btn-outline-secondary {
+      color: #6c757d;
+      border-color: #6c757d;
+
+      &:hover:not(:disabled) {
+        background-color: #6c757d;
+        color: white;
+      }
+    }
+
+    .btn-outline-danger {
+      color: #dc3545;
+      border-color: #dc3545;
+
+      &:hover:not(:disabled) {
+        background-color: #dc3545;
+        color: white;
+      }
+    }
+
+    .toolbar-divider {
+      width: 1px;
+      height: 24px;
+      background-color: #e0e0e0;
+      margin: 0 4px;
+    }
+
+    .toolbar-spinner {
+      margin-left: 8px;
+    }
+  }
+
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+}
+
+// Confirmation Modal
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  animation: fadeIn 0.3s ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.confirmation-content {
+  background-color: white;
+  border-radius: $border-radius;
+  padding: 24px;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  h5 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .confirmation-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+
+    .btn {
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: white;
+
+      &:hover {
+        background-color: darken(#dc3545, 5%);
+        border-color: darken(#dc3545, 5%);
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .toolbar-left {
+      width: 100%;
+      gap: 12px;
+    }
+
+    .toolbar-right {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    padding: 10px 12px;
+
+    .toolbar-title {
+      font-size: 16px;
+    }
+
+    .toolbar-button-group {
+      gap: 4px;
+
+      .btn {
+        font-size: 12px;
+        padding: 4px 8px;
+
+        .btn-icon {
+          font-size: 12px;
+        }
+      }
+
+      .toolbar-divider {
+        height: 20px;
+      }
+    }
+  }
+}

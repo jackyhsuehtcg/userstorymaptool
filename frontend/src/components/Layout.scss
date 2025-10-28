@@ -44,11 +44,20 @@
     }
 
     .story-map-sidebar {
-      width: 350px;
+      width: 380px;
       background-color: #fff;
       border-left: 1px solid #e0e0e0;
-      overflow-y: auto;
+      overflow: hidden;
       box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+
+      .sidebar-tabs {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+      }
     }
   }
 }

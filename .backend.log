@@ -2,11 +2,11 @@
 > backend@1.0.0 start:dev
 > nest start --watch
 
-[2J[3J[H[[90m下午4:34:20[0m] Starting compilation in watch mode...
+[2J[3J[H[[90m下午4:41:29[0m] Starting compilation in watch mode...
 
-[[90m下午4:34:21[0m] Found 0 errors. Watching for file changes.
+[[90m下午4:41:30[0m] Found 0 errors. Watching for file changes.
 
-(node:60369) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(node:62114) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 /Users/hideman/code/user_story_map_tool/backend/node_modules/@nestjs/mongoose/dist/decorators/prop.decorator.js:21
                 throw new errors_1.CannotDetermineTypeError(target.constructor?.name, propertyKey);

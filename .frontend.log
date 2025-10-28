@@ -2,10 +2,45 @@
 > frontend@0.0.0 dev
 > vite
 
+下午4:41:31 [vite] (client) Re-optimizing dependencies because lockfile has changed
 
-  VITE v7.1.12  ready in 103 ms
+  VITE v7.1.12  ready in 135 ms
 
   ➜  Local:   http://localhost:8787/
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import './tcrt.scss';
+  │         ^^^^^^^^^^^^^
+  ╵
+    src/styles/login.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+85 │             background-color: darken($primary-color, 8%);
+   │                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/styles/login.scss 85:31  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -16%)
+color.adjust($color, $lightness: -8%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+85 │             background-color: darken($primary-color, 8%);
+   │                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/styles/login.scss 85:31  root stylesheet
+
 DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
 
 More info and automated migrator: https://sass-lang.com/d/import
@@ -26,3 +61,375 @@ More info and automated migrator: https://sass-lang.com/d/import
   ╵
     src/components/LanguageSwitcher.scss 1:9  root stylesheet
 
+下午4:47:39 [vite] (client) hmr update /src/components/EditPanel.tsx
+下午4:47:40 [vite] Internal server error: Failed to resolve import "./EditPanel.scss" from "src/components/EditPanel.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/hideman/code/user_story_map_tool/frontend/src/components/EditPanel.tsx:5:7
+  5  |  import { useMapStore } from "../stores/mapStore";
+  6  |  import { notifySuccess, notifyError } from "../stores/notificationStore";
+  7  |  import "./EditPanel.scss";
+     |          ^
+  8  |  export const EditPanel = () => {
+  9  |    _s();
+      at TransformPluginContext._formatLog (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:31106:43)
+      at TransformPluginContext.error (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:31103:14)
+      at normalizeUrl (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:29590:18)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:29648:32
+      at async Promise.all (index 5)
+      at async TransformPluginContext.transform (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:29616:4)
+      at async EnvironmentPluginContainer.transform (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:30905:14)
+      at async loadAndTransform (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:26043:26)
+      at async viteTransformMiddleware (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:27118:20)
+下午4:47:50 [vite] (client) hmr update /src/components/Layout.tsx
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/EditPanel.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+157 │         background-color: darken($primary-color, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/EditPanel.scss 157:27  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -10%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+157 │         background-color: darken($primary-color, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/EditPanel.scss 157:27  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+158 │         border-color: darken($primary-color, 5%);
+    │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/EditPanel.scss 158:23  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -10%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+158 │         border-color: darken($primary-color, 5%);
+    │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/EditPanel.scss 158:23  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+174 │         background-color: darken(#dc3545, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/EditPanel.scss 174:27  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -9.3406593407%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+174 │         background-color: darken(#dc3545, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/EditPanel.scss 174:27  root stylesheet
+
+下午4:47:57 [vite] (client) hmr update /src/components/Layout.tsx
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/SearchPanel.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/NotificationContainer.scss 1:9  root stylesheet
+
+下午4:48:01 [vite] (client) hmr update /src/components/Layout.scss
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/Layout.scss 1:9  root stylesheet
+
+下午4:48:10 [vite] (client) hmr update /src/components/EditPanel.tsx
+下午4:48:14 [vite] (client) hmr update /src/components/NotificationContainer.tsx
+下午4:48:37 [vite] (client) hmr update /src/components/Toolbar.tsx
+下午4:48:37 [vite] Internal server error: Failed to resolve import "./Toolbar.scss" from "src/components/Toolbar.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/hideman/code/user_story_map_tool/frontend/src/components/Toolbar.tsx:6:7
+  6  |  import { notifySuccess, notifyError, notifyInfo } from "../stores/notificationStore";
+  7  |  import { LanguageSwitcher } from "./LanguageSwitcher";
+  8  |  import "./Toolbar.scss";
+     |          ^
+  9  |  export const Toolbar = () => {
+  10 |    _s();
+      at TransformPluginContext._formatLog (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:31106:43)
+      at TransformPluginContext.error (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:31103:14)
+      at normalizeUrl (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:29590:18)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:29648:32
+      at async Promise.all (index 6)
+      at async TransformPluginContext.transform (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:29616:4)
+      at async EnvironmentPluginContainer.transform (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:30905:14)
+      at async loadAndTransform (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:26043:26)
+      at async viteTransformMiddleware (file:///Users/hideman/code/user_story_map_tool/frontend/node_modules/vite/dist/node/chunks/config.js:27118:20)
+下午4:48:51 [vite] (client) hmr update /src/components/Layout.tsx
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/Toolbar.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+52 │         background-color: darken($primary-color, 5%);
+   │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 52:27  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -10%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+52 │         background-color: darken($primary-color, 5%);
+   │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 52:27  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+53 │         border-color: darken($primary-color, 5%);
+   │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 53:23  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -10%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+53 │         border-color: darken($primary-color, 5%);
+   │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 53:23  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+170 │         background-color: darken(#dc3545, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 170:27  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -9.3406593407%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+170 │         background-color: darken(#dc3545, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 170:27  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+171 │         border-color: darken(#dc3545, 5%);
+    │                       ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 171:23  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -9.3406593407%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+171 │         border-color: darken(#dc3545, 5%);
+    │                       ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 171:23  root stylesheet
+
+下午4:48:51 [vite] (client) hmr update /src/components/Toolbar.scss
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/Toolbar.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+52 │         background-color: darken($primary-color, 5%);
+   │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 52:27  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -10%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+52 │         background-color: darken($primary-color, 5%);
+   │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 52:27  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+53 │         border-color: darken($primary-color, 5%);
+   │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 53:23  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -10%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+   ╷
+53 │         border-color: darken($primary-color, 5%);
+   │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    src/components/Toolbar.scss 53:23  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+170 │         background-color: darken(#dc3545, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 170:27  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -9.3406593407%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+170 │         background-color: darken(#dc3545, 5%);
+    │                           ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 170:27  root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+171 │         border-color: darken(#dc3545, 5%);
+    │                       ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 171:23  root stylesheet
+
+DEPRECATION WARNING [color-functions]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -9.3406593407%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+    ╷
+171 │         border-color: darken(#dc3545, 5%);
+    │                       ^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/components/Toolbar.scss 171:23  root stylesheet
+
+下午4:49:00 [vite] (client) hmr update /src/components/Toolbar.tsx
