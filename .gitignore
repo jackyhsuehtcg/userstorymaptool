@@ -1,12 +1,17 @@
-# Dependencies
-node_modules/
-package-lock.json
-yarn.lock
+# Logs
+logs/
+*.log
+.pids
 
 # Environment variables
 .env
 .env.local
 .env.*.local
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
 
 # Build output
 dist/
@@ -24,14 +29,6 @@ build/
 .DS_Store
 Thumbs.db
 
-# Logs
-logs/
-*.log
-.pids
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 # Testing
 coverage/
 .nyc_output/
@@ -40,9 +37,5 @@ coverage/
 tmp/
 temp/
 
-# MongoDB
-data/
-
-# Configuration files with sensitive data
-config/default.yaml
-config/default.json
+# Cache
+.cache/
