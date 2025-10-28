@@ -4,21 +4,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 12px;
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
-  gap: 20px;
+  gap: 12px;
 
   .toolbar-left {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 12px;
     flex: 1;
   }
 
   .toolbar-title {
     margin: 0;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 700;
     color: $primary-color;
     white-space: nowrap;
@@ -27,18 +27,18 @@
   .toolbar-button-group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 
     .btn {
-      font-size: 13px;
-      padding: 6px 12px;
+      font-size: 11px;
+      padding: 4px 8px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       white-space: nowrap;
 
       .btn-icon {
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
       }
     }
@@ -121,8 +121,8 @@
 .confirmation-content {
   background-color: white;
   border-radius: $border-radius;
-  padding: 24px;
-  max-width: 400px;
+  padding: 16px;
+  max-width: 350px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.3s ease-out;
 
@@ -138,27 +138,27 @@
   }
 
   h5 {
-    margin-bottom: 12px;
-    font-size: 16px;
+    margin-bottom: 8px;
+    font-size: 14px;
     font-weight: 600;
     color: #333;
   }
 
   p {
-    margin-bottom: 20px;
-    font-size: 14px;
+    margin-bottom: 16px;
+    font-size: 12px;
     color: #666;
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
   .confirmation-buttons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     justify-content: flex-end;
 
     .btn {
-      font-size: 13px;
-      padding: 8px 16px;
+      font-size: 11px;
+      padding: 6px 12px;
     }
 
     .btn-danger {
