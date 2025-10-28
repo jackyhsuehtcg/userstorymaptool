@@ -1,7 +1,7 @@
 @import '../styles/tcrt.scss';
 
 .search-panel {
-  padding: 12px;
+  padding: 16px;
   border-bottom: 1px solid #eee;
 
   .search-accordion {
@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 16px;
     background-color: #f8f9fa;
     border: none;
     cursor: pointer;
@@ -26,13 +26,13 @@
     }
 
     .search-title {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       color: #333;
     }
 
     .search-toggle {
-      font-size: 11px;
+      font-size: 12px;
       color: #666;
       transition: transform 0.2s ease;
       display: flex;
@@ -45,7 +45,7 @@
   }
 
   .search-filters {
-    padding: 12px;
+    padding: 16px;
     background-color: white;
 
     &.collapse:not(.show) {
@@ -54,28 +54,28 @@
   }
 
   .search-field {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 
     &:last-of-type {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .form-label {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 500;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
       color: #333;
     }
 
     .form-control,
     .form-select {
-      font-size: 11px;
+      font-size: 13px;
       height: auto;
-      padding: 4px 8px;
+      padding: 6px 10px;
     }
 
     .d-flex {
-      gap: 6px;
+      gap: 8px;
 
       input {
         flex: 1;
