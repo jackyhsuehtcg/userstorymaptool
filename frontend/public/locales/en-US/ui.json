@@ -1,5 +1,16 @@
 {
   "appTitle": "User Story Map Tool",
+  "loginPage": {
+    "subtitle": "Collaborative Story Mapping",
+    "loginWithTcrt": "Login with TCRT",
+    "loggingIn": "Logging in...",
+    "aboutTitle": "About This Tool",
+    "feature1": "Collaborative story mapping and visualization",
+    "feature2": "Real-time editing and synchronization",
+    "feature3": "Import and export story maps",
+    "feature4": "Cross-team relationship management",
+    "footer": "Powered by TCRT Authentication"
+  },
   "toolbar": {
     "addNode": "+ Add Node",
     "clearAll": "Clear All",

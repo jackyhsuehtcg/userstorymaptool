@@ -2,72 +2,26 @@
 > backend@1.0.0 start:dev
 > nest start --watch
 
-[2J[3J[H[[90m下午4:10:01[0m] Starting compilation in watch mode...
+[2J[3J[H[[90m下午4:34:20[0m] Starting compilation in watch mode...
 
-[[90m下午4:10:01[0m] Found 0 errors. Watching for file changes.
+[[90m下午4:34:21[0m] Found 0 errors. Watching for file changes.
 
-(node:55920) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(node:60369) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-Configuration validation warning: Missing required configuration values: app.port, database.uri, jwt.secret
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
-✓ Loaded config from /Users/hideman/code/user_story_map_tool/backend/config/default.yaml
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +9ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTeamsModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mStoryMapModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTokensModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuditModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/api/v1}:[39m[38;5;3m +64ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/health, GET} route[39m[38;5;3m +2ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/api/v1/auth}:[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/login, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/logout, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/profile, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/refresh, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/oauth/callback, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTeamsController {/api/v1/teams}:[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams, GET} route[39m[38;5;3m +1ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams/:id, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams/:id/members, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStoryMapController {/api/v1/map}:[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map, PUT} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map/nodes, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map/nodes/:id, PUT} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map/nodes/:id, DELETE} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map/edges, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/map/edges/:id, DELETE} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTokensController {/api/v1/tokens}:[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tokens, GET} route[39m[38;5;3m +1ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tokens, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tokens/:id, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tokens/:id, DELETE} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tokens/:id/rotate, POST} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuditController {/api/v1/audit}:[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/audit, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/audit/stats, GET} route[39m[38;5;3m +0ms[39m
-[32m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +1ms[39m
-[31m[Nest] 55921  - [39m2025/10/28 下午4:10:02 [31m  ERROR[39m [38;5;3m[NestApplication] [39m[31mError: listen EADDRINUSE: address already in use :::8788[39m[38;5;3m +1ms[39m
-Bootstrap error: Error: listen EADDRINUSE: address already in use :::8788
-    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
-    at listenInCluster (node:net:1997:12)
-    at Server.listen (node:net:2102:7)
-    at ExpressAdapter.listen (/Users/hideman/code/user_story_map_tool/backend/node_modules/@nestjs/platform-express/adapters/express-adapter.js:127:32)
-    at /Users/hideman/code/user_story_map_tool/backend/node_modules/@nestjs/core/nest-application.js:188:30
-    at new Promise (<anonymous>)
-    at NestApplication.listen (/Users/hideman/code/user_story_map_tool/backend/node_modules/@nestjs/core/nest-application.js:178:16)
-    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async bootstrap (/Users/hideman/code/user_story_map_tool/backend/src/main.ts:33:3) {
-  code: 'EADDRINUSE',
-  errno: -48,
-  syscall: 'listen',
-  address: '::',
-  port: 8788
-}
+/Users/hideman/code/user_story_map_tool/backend/node_modules/@nestjs/mongoose/dist/decorators/prop.decorator.js:21
+                throw new errors_1.CannotDetermineTypeError(target.constructor?.name, propertyKey);
+                ^
+
+CannotDetermineTypeError: Cannot determine a type for the "Node.parentId" field (union/intersection/ambiguous type was used). Make sure your property is decorated with a "@Prop({ type: TYPE_HERE })" decorator.
+    at <anonymous> (/Users/hideman/code/user_story_map_tool/backend/node_modules/@nestjs/mongoose/lib/decorators/prop.decorator.ts:31:15)
+    at DecorateProperty (/Users/hideman/code/user_story_map_tool/backend/node_modules/reflect-metadata/Reflect.js:561:33)
+    at Reflect.decorate (/Users/hideman/code/user_story_map_tool/backend/node_modules/reflect-metadata/Reflect.js:136:24)
+    at __decorate (/Users/hideman/code/user_story_map_tool/backend/dist/story-map/schemas/node.schema.js:4:92)
+    at Object.<anonymous> (/Users/hideman/code/user_story_map_tool/backend/src/story-map/schemas/node.schema.ts:30:3)
+    at Module._compile (node:internal/modules/cjs/loader:1760:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1480:32)
+    at Module._load (node:internal/modules/cjs/loader:1299:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+
+Node.js v24.10.0

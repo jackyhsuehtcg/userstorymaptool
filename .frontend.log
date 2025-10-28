@@ -6,3 +6,23 @@
   VITE v7.1.12  ready in 103 ms
 
   ➜  Local:   http://localhost:8787/
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/Layout.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import '../styles/tcrt.scss';
+  │         ^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/components/LanguageSwitcher.scss 1:9  root stylesheet
+

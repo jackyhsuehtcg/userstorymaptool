@@ -1,5 +1,16 @@
 {
   "appTitle": "使用者故事地圖工具",
+  "loginPage": {
+    "subtitle": "協作故事地圖",
+    "loginWithTcrt": "使用 TCRT 登入",
+    "loggingIn": "正在登入...",
+    "aboutTitle": "關於此工具",
+    "feature1": "協作故事地圖和可視化",
+    "feature2": "即時編輯和同步",
+    "feature3": "匯入和匯出故事地圖",
+    "feature4": "跨團隊關係管理",
+    "footer": "由 TCRT 身份驗證提供支援"
+  },
   "toolbar": {
     "addNode": "+ 新增節點",
     "clearAll": "清除全部",
