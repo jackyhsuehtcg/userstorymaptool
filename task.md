@@ -8,7 +8,7 @@
 5. [x] 建立 MongoDB 連線設定、健康檢查與 replica set 支援，啟用交易（session）。
 6. [x] 定義 nodes、edges、auditLogs、apiTokens Schema 與索引策略，撰寫 migration framework 及範例腳本。
 7. [x] 實作資料驗證層，涵蓋 ancestorPath 防迴圈、單一父節點約束、Cross Edge 參照、TeamId 驗證。
-8. [ ] 整合 TCRT OAuth/OIDC 流程與 API 客戶端（登入、登出、`GET /api/teams`、審計 API）。
+8. [x] 整合 TCRT OAuth/OIDC 流程與 API 客戶端（登入、登出、`GET /api/teams`、審計 API）。
 
 ## 2. 前端：UI 佈局與元件
 1. [ ] 以 Bootstrap 5 建立左右分欄版面，左側顯示圖表、右側為編輯面板與搜尋區。
