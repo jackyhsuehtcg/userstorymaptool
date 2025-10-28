@@ -41,3 +41,7 @@ temp/
 
 # MongoDB
 data/
+
+# Configuration files with sensitive data
+config/default.yaml
+config/default.json

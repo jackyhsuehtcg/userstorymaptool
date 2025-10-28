@@ -4,8 +4,8 @@
 1. [x] 建立 React + TypeScript 前端專案，整合 React Flow、Zustand（含時間旅行中介層）、Bootstrap 5 與 TCRT 客製 SCSS。
 2. [x] 設定 react-i18next 架構與 `locales/<lang>.json` 範本，定義 `ui`、`team`、`messages` 命名空間與 fallback 策略。
 3. [x] 建立 NestJS 後端專案並劃分 Auth、Teams、StoryMap、Tokens、Audit、Config 等模組化結構。
-4. [ ] 設計 YAML 設定載入與環境變數覆寫機制，提供 `config/default.example.yaml`，更新 `.gitignore` 排除敏感檔。
-5. [ ] 建立 MongoDB 連線設定、健康檢查與 replica set 支援，啟用交易（session）。
+4. [x] 設計 YAML 設定載入與環境變數覆寫機制，提供 `config/default.example.yaml`，更新 `.gitignore` 排除敏感檔。
+5. [x] 建立 MongoDB 連線設定、健康檢查與 replica set 支援，啟用交易（session）。
 6. [ ] 定義 nodes、edges、auditLogs、apiTokens Schema 與索引策略，撰寫 migration framework 及範例腳本。
 7. [ ] 實作資料驗證層，涵蓋 ancestorPath 防迴圈、單一父節點約束、Cross Edge 參照、TeamId 驗證。
 8. [ ] 整合 TCRT OAuth/OIDC 流程與 API 客戶端（登入、登出、`GET /api/teams`、審計 API）。

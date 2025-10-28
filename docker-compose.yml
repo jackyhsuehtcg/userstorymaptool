@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # MongoDB instance with replica set enabled
+  mongodb:
+    image: mongo:7
+    container_name: story-map-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: story-map
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    command:
+      - mongod
+      - --replSet=rs0
+      - --bind_ip=0.0.0.0
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - story-map-network
+
+  # Script to initialize replica set (runs once)
+  mongo-init:
+    image: mongo:7
+    container_name: story-map-mongo-init
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - story-map-network
+    command: >
+      mongosh
+      --host mongodb:27017
+      -u root
+      -p password
+      --authenticationDatabase admin
+      --eval "
+        try {
+          rs.initiate({
+            _id: 'rs0',
+            members: [
+              {
+                _id: 0,
+                host: 'mongodb:27017',
+                priority: 1
+              }
+            ]
+          });
+          print('Replica set initialized successfully');
+        } catch (e) {
+          if (e.code === 23) {
+            print('Replica set already initialized');
+          } else {
+            throw e;
+          }
+        }
+      "
+    profiles:
+      - init  # Run with: docker-compose --profile init up
+
+  # MongoDB Express UI (optional, for development)
+  mongo-express:
+    image: mongo-express
+    container_name: story-map-mongo-express
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://root:password@mongodb:27017
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+    profiles:
+      - dev  # Run with: docker-compose --profile dev up
+
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+
+networks:
+  story-map-network:
+    driver: bridge
