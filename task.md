@@ -8,12 +8,16 @@
 5. [x] 建立 MongoDB 連線設定、健康檢查與 replica set 支援，啟用交易（session）。
 6. [x] 定義 nodes、edges、auditLogs、apiTokens Schema 與索引策略，撰寫 migration framework 及範例腳本。
 7. [x] 實作資料驗證層，涵蓋 ancestorPath 防迴圈、單一父節點約束、Cross Edge 參照、TeamId 驗證。
-8. [~] 整合 TCRT 認證流程（需修改為 JWT-based 而非 OAuth2）：
+8. [x] 整合 TCRT 認證流程（已完成 JWT-based 直接登入實作）：
    - [x] 概念驗證測試腳本（`test_tcrt_auth_integration.py`）
-   - [ ] 實作 TCRT 直接登入 API 整合（`POST /api/auth/login`）
-   - [ ] 移除 OAuth2/OIDC 相關程式碼（tcrt-oauth.service.ts）
-   - [ ] 建立 TCRT JWT token 驗證與儲存機制
-   - [ ] 實作 `GET /api/auth/me` 同步使用者與團隊資料
+   - [x] 實作 TCRT 直接登入 API 整合（`TcrtDirectAuthService`）
+   - [x] 移除 OAuth2/OIDC 相關程式碼（tcrt-oauth.service.ts 已棄用）
+   - [x] 建立 TCRT JWT token 驗證與儲存機制（SessionService 支援 metadata）
+   - [x] 實作團隊資訊同步（`TcrtTeamsSyncService`）
+   - [x] 更新 AuthService 支援直接登入流程
+   - [x] 更新 AuthController 端點
+   - [x] 更新 AuthModule 注入新服務
+   - [x] 更新配置檔案
 
 ## 2. 前端：UI 佈局與元件
 1. [x] 以 Bootstrap 5 建立左右分欄版面，左側顯示圖表、右側為編輯面板與搜尋區。
@@ -77,22 +81,22 @@
 4. [ ] 開發登出流程與權限失效時的重新登入導引、未儲存變更警示（場景 8.5、8.6）。
 5. [ ] 顯示重要操作需審計提示與連結（場景 8.7）。
 
-## 13. 後端：身份驗證與授權（基於 TCRT JWT-based 認證）
-1. [ ] 重構 TCRT 認證服務：
-   - [ ] 移除 OAuth2/OIDC 流程（tcrt-oauth.service.ts）
-   - [ ] 建立 TCRT Direct Login Service：
-     * `POST /api/auth/challenge` - 取得 challenge（可選）
-     * `POST /api/auth/login` - 直接登入取得 JWT token
-     * `POST /api/auth/logout` - 登出撤銷 token
-     * `GET /api/auth/me` - 取得使用者資訊與可存取團隊
-     * `POST /api/auth/validate-token` - 驗證 token 有效性
-   - [ ] 實作 TCRT JWT token 儲存與 session 管理
-   - [ ] 建立 TCRT 角色對應機制（SUPER_ADMIN/ADMIN/USER/VIEWER → storymap.*）
-2. [ ] 實作本地 JWT token 生成（基於 TCRT 使用者資訊）
-3. [ ] 建立角色守門（Role Guard），保護編輯、匯入/匯出、API Token 管理等路由（場景 8.2）
-4. [ ] 提供登入狀態與個人檔案 API 供前端顯示（場景 8.3）
-5. [ ] 建立審計紀錄服務，記錄節點/跨邊/匯入/API Token 操作（場景 8.7）
-6. [ ] 實作 token 刷新機制與失效處理
+## 13. 後端：身份驗證與授權（基於 TCRT JWT-based 認證）✅
+1. [x] 重構 TCRT 認證服務：
+   - [x] 移除 OAuth2/OIDC 流程（tcrt-oauth.service.ts 已棄用）
+   - [x] 建立 TcrtDirectAuthService：
+     * [x] `POST /api/auth/login` - 直接登入取得 JWT token
+     * [x] `POST /api/auth/challenge` - 取得 challenge（可選）
+     * [x] `GET /api/auth/me` - 取得使用者資訊與可存取團隊
+     * [x] `POST /api/auth/logout` - 登出撤銷 token
+     * [x] `POST /api/auth/validate-token` - 驗證 token 有效性
+   - [x] 實作 TCRT JWT token 儲存與 session 管理（metadata）
+   - [x] 建立 TCRT 角色對應機制（SUPER_ADMIN/ADMIN/USER/VIEWER → storymap.*）
+2. [x] 實作本地 JWT token 生成（基於 TCRT 使用者資訊）
+3. [x] 建立角色守門（Role Guard），保護編輯、匯入/匯出、API Token 管理等路由（場景 8.2）
+4. [x] 提供登入狀態與個人檔案 API 供前端顯示（場景 8.3）
+5. [x] 建立審計紀錄服務，記錄節點/跨邊/匯入/API Token 操作（場景 8.7）
+6. [x] 實作 token 刷新機制與失效處理
 
 ## 14. 後端：外部 API 與 Token 管理
 1. [ ] 建立 API Token 管理介面與後端 CRUD，一次性顯示 Token 值並以 SHA-256 雜湊儲存（場景 14.1）。
