@@ -1,0 +1,130 @@
+/**
+ * Canvas component styles
+ */
+
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #fafafa;
+
+  :global(.react-flow) {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.react-flow__nodes) {
+    will-change: transform;
+  }
+
+  :global(.react-flow__node) {
+    transition: opacity 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+    }
+  }
+
+  :global(.react-flow__edge) {
+    transition: stroke-width 0.2s ease-in-out, opacity 0.2s ease-in-out;
+
+    &.animated {
+      animation: flowAnimation 1.5s linear infinite;
+    }
+  }
+
+  @keyframes flowAnimation {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 8;
+    }
+  }
+
+  :global(.react-flow__controls) {
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+  }
+
+  :global(.react-flow__controls button) {
+    border-bottom: 1px solid #e5e5e5;
+    background-color: white;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    &:active {
+      background-color: #e8e8e8;
+    }
+  }
+
+  :global(.react-flow__minimap) {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+  }
+
+  /* Custom fit button */
+  .canvas-controls {
+    position: absolute;
+    bottom: 120px;
+    left: 20px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .fit-button {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background-color: #f5f5f5;
+        color: #333;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        background-color: #e8e8e8;
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  /* Team Space/Lane visual separation */
+  :global(.team-space) {
+    border: 1px dashed #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.01);
+  }
+}

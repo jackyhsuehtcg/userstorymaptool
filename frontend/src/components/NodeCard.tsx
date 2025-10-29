@@ -1,6 +1,7 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 import type { StoryMapNode } from '../types';
+import './NodeCard.scss';
 
 interface NodeCardProps {
   data: {
@@ -10,77 +11,61 @@ interface NodeCardProps {
   selected?: boolean;
 }
 
+/**
+ * Node Card Component
+ * Displays story map node information in a structured card format
+ * Shows ID, team, summary, description, ticket labels, and custom styling
+ */
 export const NodeCard: React.FC<NodeCardProps> = ({ data, selected }) => {
   const node = data.node;
+  const hasDescription = node.description && node.description.trim().length > 0;
+  const hasTickets = node.ticketLabels && node.ticketLabels.length > 0;
 
   return (
     <div
-      className={`tcrt-node ${selected ? 'selected' : ''}`}
-      style={{
-        padding: '12px',
-        borderRadius: '8px',
-        border: selected ? '2px solid #007bff' : '1px solid #ddd',
-        backgroundColor: '#fff',
-        minWidth: '150px',
-        maxWidth: '200px',
-        boxShadow: selected ? '0 0 8px rgba(0,123,255,0.5)' : 'none',
-      }}
+      className={`story-node-card ${selected ? 'selected' : ''}`}
+      title={`${node.summary}${hasDescription ? '\n\n' + node.description : ''}`}
     >
-      <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>
-        ID: {node.id}
+      {/* Node ID Badge */}
+      <div className="node-id">
+        <span className="id-label">ID</span>
+        <span className="id-value">{node.id.substring(0, 8)}</span>
       </div>
-      <div
-        style={{
-          fontWeight: 'bold',
-          fontSize: '14px',
-          marginBottom: '8px',
-          wordWrap: 'break-word',
-        }}
-      >
-        {node.summary}
-      </div>
-      {node.description && (
-        <div style={{ fontSize: '12px', color: '#999', marginBottom: '8px' }}>
-          {node.description.substring(0, 50)}
-          {node.description.length > 50 ? '...' : ''}
-        </div>
-      )}
-      {node.teamId && (
-        <div
-          style={{
-            fontSize: '11px',
-            backgroundColor: '#f0f0f0',
-            padding: '4px 8px',
-            borderRadius: '4px',
-            display: 'inline-block',
-            marginBottom: '8px',
-          }}
-        >
-          Team: {node.teamId}
-        </div>
-      )}
-      {node.ticketLabels && node.ticketLabels.length > 0 && (
-        <div style={{ marginTop: '8px' }}>
-          {node.ticketLabels.map((label) => (
-            <span
-              key={label}
-              style={{
-                fontSize: '10px',
-                backgroundColor: '#e7f3ff',
-                color: '#0050b3',
-                padding: '2px 6px',
-                borderRadius: '3px',
-                marginRight: '4px',
-                display: 'inline-block',
-                marginBottom: '4px',
-              }}
-            >
-              {label}
-            </span>
-          ))}
+
+      {/* Node Summary (Title) */}
+      <div className="node-summary">{node.summary}</div>
+
+      {/* Description Preview */}
+      {hasDescription && node.description && (
+        <div className="node-description">
+          {node.description.substring(0, 60)}
+          {node.description.length > 60 ? '...' : ''}
         </div>
       )}
 
+      {/* Team Badge */}
+      {node.teamId && (
+        <div className="node-team">
+          <span className="team-label">👥</span>
+          <span className="team-value">{node.teamId}</span>
+        </div>
+      )}
+
+      {/* Ticket Labels */}
+      {hasTickets && node.ticketLabels && (
+        <div className="node-tickets">
+          {node.ticketLabels.slice(0, 3).map((label) => (
+            <span key={label} className="ticket-badge">
+              {label}
+            </span>
+          ))}
+          {node.ticketLabels.length > 3 && (
+            <span className="ticket-more">+{node.ticketLabels.length - 3}</span>
+          )}
+        </div>
+      )}
+
+      {/* Connection Handles */}
       <Handle type="target" position={Position.Top} />
       <Handle type="source" position={Position.Bottom} />
     </div>
