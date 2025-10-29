@@ -3,11 +3,9 @@ import {
   ReactFlow,
   Background,
   Controls,
-  ControlButton,
   MiniMap,
   useNodesState,
   useEdgesState,
-  useReactFlow,
   ReactFlowProvider,
   type Connection,
   type Node,
@@ -36,7 +34,6 @@ const CanvasInner: React.FC = () => {
   const addEdgeToStore = useMapStore((state) => state.addEdge);
   const updateNode = useMapStore((state) => state.updateNode);
 
-  const { fitView } = useReactFlow();
   const layoutCalculatedRef = useRef(false);
 
   // Calculate layout whenever nodes or edges change
@@ -155,12 +152,6 @@ const CanvasInner: React.FC = () => {
     setSelectedNodeId(node.id);
   };
 
-  const handleFitToScreen = useCallback(() => {
-    setTimeout(() => {
-      fitView({ padding: 0.2, minZoom: 0.5, maxZoom: 2 });
-    }, 0);
-  }, [fitView]);
-
   return (
     <div className="canvas-container">
       <ReactFlow
@@ -178,14 +169,7 @@ const CanvasInner: React.FC = () => {
           gap={16}
           style={{ backgroundColor: '#fafafa' }}
         />
-        <Controls>
-          <ControlButton
-            onClick={handleFitToScreen}
-            title="Fit View"
-          >
-            ⊡
-          </ControlButton>
-        </Controls>
+        <Controls />
         <MiniMap />
       </ReactFlow>
     </div>
