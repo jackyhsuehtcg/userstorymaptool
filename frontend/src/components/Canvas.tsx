@@ -15,7 +15,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import { useMapStore } from '../stores/mapStore';
 import { NodeCard } from './NodeCard';
-import { calculateLayout, getNodeOpacity, getNodeHighlightColor } from '../utils/layout';
+import { calculateLayout, getNodeOpacity, getNodeHighlightColor, validateHierarchyChange } from '../utils/layout';
 import './Canvas.scss';
 
 const nodeTypes = {
@@ -116,6 +116,42 @@ const CanvasInner: React.FC = () => {
     setEdgesState(rfEdges);
   }, [rfEdges, setEdgesState]);
 
+  // Detect if a node is dragged over another node (for potential parent change)
+  const detectParentChange = useCallback(
+    (movedNodeId: string, newPosition: { x: number; y: number }) => {
+      const movedNode = layoutedNodes.find((n) => n.id === movedNodeId);
+      if (!movedNode) return;
+
+      const PROXIMITY_THRESHOLD = 120; // pixels
+
+      // Find nearby nodes that could be the new parent
+      for (const node of layoutedNodes) {
+        if (node.id === movedNodeId) continue;
+
+        const distance = Math.sqrt(
+          Math.pow(newPosition.x - (node.x || 0), 2) +
+            Math.pow(newPosition.y - (node.y || 0), 2)
+        );
+
+        if (distance < PROXIMITY_THRESHOLD) {
+          // Check if this would be a valid parent (no circular deps)
+          if (validateHierarchyChange(movedNodeId, node.id, layoutedNodes, edges)) {
+            // Update the parent relationship if changed
+            const currentParent = movedNode.parentId;
+            if (currentParent !== node.id) {
+              updateNode(movedNodeId, { parentId: node.id });
+
+              // Remove old parent edge and create new one
+              // (this will be handled by the edge management system)
+            }
+          }
+          break;
+        }
+      }
+    },
+    [layoutedNodes, edges, updateNode]
+  );
+
   // Sync node positions back to store when they move
   const handleNodesChange = useCallback(
     (changes: any[]) => {
@@ -128,10 +164,13 @@ const CanvasInner: React.FC = () => {
             x: Math.round(change.position.x),
             y: Math.round(change.position.y),
           });
+
+          // Detect parent change based on proximity
+          detectParentChange(change.id, change.position);
         }
       });
     },
-    [onNodesChange, updateNode]
+    [onNodesChange, updateNode, detectParentChange]
   );
 
   const onConnect = useCallback(

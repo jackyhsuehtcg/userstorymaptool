@@ -288,3 +288,33 @@ export function getNodeHighlightColor(
 
   return undefined;
 }
+
+
+/**
+ * Validate if a parent-child relationship change is valid
+ * Prevents circular dependencies (node can't be ancestor of its ancestors)
+ *
+ * @param childNodeId - The node being moved
+ * @param newParentId - The new parent node ID
+ * @param nodes - All story map nodes
+ * @param edges - All story map edges
+ * @returns true if the relationship is valid, false otherwise
+ */
+export function validateHierarchyChange(
+  childNodeId: string,
+  newParentId: string,
+  nodes: StoryMapNode[],
+  edges: StoryMapEdge[]
+): boolean {
+  // Can't be parent to self
+  if (childNodeId === newParentId) return false;
+
+  // Check for circular dependency
+  const tree = buildNodeTree(nodes, edges);
+  const childEntry = tree.get(childNodeId);
+  
+  if (!childEntry) return false;
+
+  // New parent can't be a descendant of the child (would create cycle)
+  return !childEntry.descendants.includes(newParentId);
+}
