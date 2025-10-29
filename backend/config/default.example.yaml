@@ -1,203 +1,52 @@
-# User Story Map Tool - Default Configuration
-# Copy this file to config/default.yaml and update values for your environment
-# Environment variables will override these settings
+# User Story Map Tool Configuration
 
-# Application Settings
 app:
-  # Node environment: development, production, test
-  nodeEnv: development
-  # Server port
-  port: 8788
-  # API version prefix
-  apiPrefix: /api/v1
-  # API version
-  apiVersion: "1.0.0"
-  # Enable CORS
-  cors:
-    enabled: true
-    # Frontend URL for CORS
-    origin: http://localhost:8787
-  # Request logging
-  logging:
-    level: debug
-    format: combined
+  port: 4000
+  baseUrl: http://localhost:4000
+  logLevel: debug
+
+# TCRT Integration Settings
+tcrt:
+  apiBaseUrl: http://localhost:9999/api
+  requestTimeout: 10000
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:-default-secret-key}
+  expiresIn: 7d
 
 # Database Configuration
 database:
-  # MongoDB connection URI
-  uri: mongodb://localhost:27017/story-map
-  # Database name
-  name: story-map
-  # Connection options
-  options:
-    useNewUrlParser: true
-    useUnifiedTopology: true
-    retryWrites: true
-    w: majority
-  # Connection pool
-  connectionPool:
-    minPoolSize: 2
-    maxPoolSize: 10
-  # Replica set for transactions (optional)
-  replicaSet: null
-  # Health check
-  healthCheck:
-    enabled: true
-    interval: 30000  # ms
+  mongo:
+    uri: ${MONGO_URI:-mongodb://localhost:27017/storymap}
+    options:
+      retryWrites: true
+      w: majority
 
-# JWT Authentication
-jwt:
-  # JWT signing secret
-  secret: your-secret-key-change-in-production
-  # Access token expiration
-  expiresIn: 24h
-  # Refresh token secret
-  refreshSecret: your-refresh-secret-key
-  # Refresh token expiration
-  refreshExpiresIn: 7d
+# Session Configuration
+session:
+  maxAge: 604800  # 7 days
 
-# OAuth/OIDC Configuration (TCRT)
-oauth:
-  tcrt:
-    # OAuth client ID
-    clientId: client-id
-    # OAuth client secret
-    clientSecret: client-secret
-    # OpenID Connect discovery URL
-    discoveryUrl: https://oauth.example.com/.well-known/openid-configuration
-    # OAuth redirect URI
-    redirectUri: http://localhost:3000/api/v1/auth/oauth/callback
-    # OAuth scopes
-    scope: openid profile email
-    # PKCE enabled (Proof Key for Code Exchange)
-    pkceEnabled: true
-    # Cache OIDC config (ms)
-    configCacheTtl: 3600000
+# API Configuration
+api:
+  rateLimit:
+    windowMinutes: 1
+    maxRequests: 60
+  tokens:
+    hashAlgorithm: sha256
+    defaultExpiryDays: 90
 
-# API Rate Limiting
-rateLimit:
-  # Enable rate limiting
-  enabled: true
-  # Requests per minute
-  requestsPerMinute: 60
-  # Whitelist IPs (bypass rate limit)
-  whitelist: []
-
-# Audit Logging
+# Audit Configuration
 audit:
-  # Enable audit logging
   enabled: true
-  # Log level (all, changes, important)
-  level: changes
-  # Retention (days, 0 = no limit)
-  retention: 90
-  # Sensitive fields to mask
-  maskFields:
-    - password
-    - token
-    - secret
-    - apiKey
+  retentionDays: 90
 
-# File Upload
-fileUpload:
-  # Maximum file size (bytes)
-  maxFileSize: 10485760  # 10MB
-  # Allowed file types
-  allowedMimeTypes:
-    - application/json
-  # Upload directory
-  uploadDir: ./uploads
+# Logging Configuration
+logging:
+  format: json
+  level: debug
 
-# Performance Settings
-performance:
-  # Enable caching
-  caching:
-    enabled: true
-    ttl: 3600  # seconds
-  # Enable pagination
-  pagination:
-    defaultLimit: 50
-    maxLimit: 100
-  # Batch operation size
-  batchSize: 100
-
-# Team Management
-team:
-  # Cache team data (ms)
-  cacheTtl: 600000  # 10 minutes
-  # Allow offline cache
-  offlineCacheEnabled: true
-
-# Story Map Settings
-storyMap:
-  # Maximum nodes per map
-  maxNodes: 1000
-  # Maximum edges per map
-  maxEdges: 5000
-  # Performance warning threshold
-  warningThreshold:
-    nodes: 300
-    edges: 1000
-  # Validation settings
-  validation:
-    # Max ancestor depth
-    maxAncestorDepth: 50
-    # Max label length
-    maxLabelLength: 500
-    # Allow circular references
-    allowCircular: false
-
-# Email Configuration (optional)
-email:
-  # Enable email notifications
-  enabled: false
-  # SMTP server
-  smtp:
-    host: smtp.example.com
-    port: 587
-    secure: false
-    auth:
-      user: your-email@example.com
-      pass: your-password
-  # From address
-  from: noreply@example.com
-
-# Feature Flags
-features:
-  # Enable OAuth login
-  oauthLogin: true
-  # Enable API tokens
-  apiTokens: true
-  # Enable audit logging
-  auditLogging: true
-  # Enable team management
-  teamManagement: true
-  # Enable import/export
-  importExport: true
-
-# Development Settings (only in development)
-development:
-  # Enable debug logging
-  debug: true
-  # Enable request logging
-  requestLogging: true
-  # Seed database on startup
-  seedDatabase: false
-  # Drop database on startup
-  dropDatabase: false
-
-# Security Settings
-security:
-  # Password settings
-  password:
-    minLength: 8
-    requireUppercase: true
-    requireLowercase: true
-    requireNumbers: true
-    requireSpecialChars: true
-  # Session timeout (ms)
-  sessionTimeout: 3600000  # 1 hour
-  # Token expiration (days)
-  tokenExpiration: 365
-  # Enable API key validation
-  apiKeyValidation: true
+# Cors Configuration
+cors:
+  origin: '*'
+  credentials: true

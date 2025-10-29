@@ -5,18 +5,17 @@ import {
   Body,
   UseGuards,
   Req,
-  Res,
   BadRequestException,
   Logger,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { RolesGuard, Roles } from './guards/roles.guard';
 
 /**
  * Authentication Controller
- * Handles OAuth login, logout, profile, and token refresh endpoints
+ * Handles TCRT direct login, logout, profile, and team sync endpoints
  */
 @Controller('api/v1/auth')
 export class AuthController {
@@ -25,61 +24,38 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   /**
-   * Initiate OAuth login flow
-   * Returns authorization URL and CSRF state
+   * Direct login with TCRT credentials
+   * POST /api/v1/auth/login
    */
-  @Post('login/initiate')
-  async initiateLogin(): Promise<{
-    authorizationUrl: string;
-    state: string;
-    codeVerifier?: string;
-  }> {
-    this.logger.debug(`OAuth login initiated`);
-    return this.authService.initiateOAuthLogin();
-  }
-
-  /**
-   * Handle OAuth callback
-   * Exchange authorization code for JWT and create session
-   */
-  @Post('oauth/callback')
-  async oauthCallback(
+  @Post('login')
+  async login(
     @Body()
     body: {
-      code: string;
-      state: string;
-      storedState: string;
-      codeVerifier?: string;
+      username: string;
+      password: string;
     },
     @Req() req: Request,
   ): Promise<{
     accessToken: string;
-    refreshToken?: string;
     expiresIn: number;
     user: any;
     sessionId: string;
   }> {
-    if (!body.code || !body.state || !body.storedState) {
-      throw new BadRequestException('Missing required OAuth parameters');
+    if (!body.username || !body.password) {
+      throw new BadRequestException('Username and password are required');
     }
 
     const ipAddress = this.getClientIp(req);
     const userAgent = req.get('user-agent') || 'unknown';
 
-    this.logger.debug(`Processing OAuth callback from ${ipAddress}`);
+    this.logger.debug(`Login attempt for user ${body.username} from ${ipAddress}`);
 
-    return this.authService.handleOAuthCallback(
-      body.code,
-      body.state,
-      body.storedState,
-      ipAddress,
-      userAgent,
-      body.codeVerifier,
-    );
+    return this.authService.login(body.username, body.password, ipAddress, userAgent);
   }
 
   /**
    * Get current user profile
+   * GET /api/v1/auth/profile
    * Requires valid JWT token
    */
   @Get('profile')
@@ -91,36 +67,13 @@ export class AuthController {
   }
 
   /**
-   * Refresh access token
-   * Requires session ID and refresh token in cookies or body
-   */
-  @Post('refresh')
-  async refreshToken(
-    @Body() body: { sessionId: string },
-    @Req() req: Request,
-  ): Promise<{
-    accessToken: string;
-    expiresIn: number;
-  }> {
-    if (!body.sessionId) {
-      throw new BadRequestException('Session ID is required');
-    }
-
-    const ipAddress = this.getClientIp(req);
-    const userAgent = req.get('user-agent') || 'unknown';
-
-    this.logger.debug(`Token refresh requested from ${ipAddress}`);
-
-    return this.authService.refreshAccessToken(body.sessionId, ipAddress, userAgent);
-  }
-
-  /**
    * Logout and invalidate session
+   * POST /api/v1/auth/logout
    */
   @Post('logout')
   @UseGuards(AuthGuard('jwt'))
   async logout(
-    @Body() body: { sessionId: string; refreshToken?: string },
+    @Body() body: { sessionId: string },
     @Req() req: Request,
   ): Promise<{ message: string }> {
     if (!body.sessionId) {
@@ -133,23 +86,18 @@ export class AuthController {
 
     this.logger.debug(`Logout requested by user ${user.userId}`);
 
-    await this.authService.logout(
-      body.sessionId,
-      body.refreshToken,
-      ipAddress,
-      userAgent,
-    );
+    await this.authService.logout(body.sessionId, undefined, ipAddress, userAgent);
 
-    return { message: 'Logged out successfully' };
+    return { message: '登出成功' };
   }
 
   /**
-   * Sync teams with TCRT
+   * Sync teams from TCRT
+   * POST /api/v1/auth/teams/sync
    * Requires valid JWT token
    */
   @Post('teams/sync')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles('storymap.*')
+  @UseGuards(AuthGuard('jwt'))
   async syncTeams(@Req() req: any): Promise<any[]> {
     const user = (req as any).user;
     const ipAddress = this.getClientIp(req);
@@ -157,57 +105,90 @@ export class AuthController {
 
     this.logger.debug(`Teams sync requested by user ${user.userId}`);
 
-    return this.authService.syncTeams(
-      user.accessToken,
-      user.userId || user.sub,
-      ipAddress,
-      userAgent,
-    );
+    // 需要 TCRT token 來取得團隊資訊
+    // 通常從 session 中取得
+    if (!user.tcrtToken) {
+      throw new BadRequestException('TCRT token not available');
+    }
+
+    return this.authService.syncTeams(user.tcrtToken, user.userId, ipAddress, userAgent);
   }
 
   /**
    * Get session status
-   * Quick check if current session is valid
+   * GET /api/v1/auth/session/status
+   * Requires valid JWT token
    */
   @Get('session/status')
   @UseGuards(AuthGuard('jwt'))
   async getSessionStatus(@Req() req: Request): Promise<{
     valid: boolean;
-    userId: string;
+    userId: number;
     username: string;
+    role: string;
   }> {
     const user = (req as any).user;
     return {
       valid: true,
       userId: user.userId || user.sub,
       username: user.username,
+      role: user.role,
     };
   }
 
   /**
+   * Refresh access token
+   * POST /api/v1/auth/refresh
+   * Requires valid JWT token
+   */
+  @Post('refresh')
+  @UseGuards(AuthGuard('jwt'))
+  async refreshToken(
+    @Body() body: { sessionId: string },
+    @Req() req: Request,
+  ): Promise<{
+    accessToken: string;
+    expiresIn: number;
+  }> {
+    if (!body.sessionId) {
+      throw new BadRequestException('Session ID is required');
+    }
+
+    const user = (req as any).user;
+    const ipAddress = this.getClientIp(req);
+    const userAgent = req.get('user-agent') || 'unknown';
+
+    this.logger.debug(`Token refresh requested by user ${user.userId}`);
+
+    return this.authService.refreshAccessToken(
+      user.userId,
+      body.sessionId,
+      ipAddress,
+      userAgent,
+    );
+  }
+
+  /**
    * Logout all sessions for current user
-   * Useful for security: password change, suspicious activity, etc.
+   * POST /api/v1/auth/logout-all
+   * Requires valid JWT token
    */
   @Post('logout-all')
   @UseGuards(AuthGuard('jwt'))
   async logoutAllSessions(
     @Body() body: { currentSessionId: string },
     @Req() req: Request,
-  ): Promise<{ message: string; loggedOutCount: number }> {
+  ): Promise<{ message: string }> {
     if (!body.currentSessionId) {
       throw new BadRequestException('Current session ID is required');
     }
 
     const user = (req as any).user;
-    this.logger.warn(
-      `User ${user.userId} logging out all sessions`,
-    );
+    this.logger.warn(`User ${user.userId} logging out all sessions`);
 
-    // Note: Implement this in AuthService with SessionService.invalidateUserSessions
-    // For now, just log and return placeholder
+    // TODO: Implement logout all sessions using SessionService
     return {
       message: 'All sessions have been invalidated',
-      loggedOutCount: 1,
     };
   }
 

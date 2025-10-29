@@ -6,19 +6,15 @@ import { ConfigService } from '@nestjs/config';
 
 interface SessionData {
   _id?: string;
-  userId: string;
-  teamId?: string;
+  userId: number | string;
   accessToken: string;
-  refreshToken?: string;
   tokenExpiresAt: Date;
-  refreshTokenExpiresAt?: Date;
   lastActivity: Date;
   ipAddress: string;
   userAgent: string;
-  state?: string;
-  codeVerifier?: string;
   active: boolean;
   createdAt: Date;
+  metadata?: Record<string, any>;
 }
 
 /**
@@ -27,18 +23,14 @@ interface SessionData {
 export const SessionSchema = {
   name: 'Session',
   schema: {
-    userId: { type: String, required: true, indexed: true },
-    teamId: { type: String, indexed: true },
+    userId: { type: Number, required: true, indexed: true },
     accessToken: { type: String, required: true },
-    refreshToken: { type: String },
     tokenExpiresAt: { type: Date, required: true },
-    refreshTokenExpiresAt: { type: Date },
     lastActivity: { type: Date, required: true, default: Date.now },
     ipAddress: { type: String },
     userAgent: { type: String },
-    state: { type: String }, // For OAuth state tracking
-    codeVerifier: { type: String }, // For PKCE
     active: { type: Boolean, default: true, indexed: true },
+    metadata: { type: Object, default: {} },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
@@ -58,7 +50,6 @@ export class SessionService {
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {
-    // Start periodic cleanup of expired sessions
     this.startSessionCleanup();
   }
 
@@ -66,33 +57,23 @@ export class SessionService {
    * Create a new session
    */
   async createSession(
-    userId: string,
+    userId: number | string,
     accessToken: string,
     tokenExpiresAt: Date,
     ipAddress: string,
     userAgent: string,
-    options?: {
-      teamId?: string;
-      refreshToken?: string;
-      refreshTokenExpiresAt?: Date;
-      state?: string;
-      codeVerifier?: string;
-    },
+    metadata?: Record<string, any>,
   ): Promise<SessionData> {
     try {
       const session = new this.sessionModel({
         userId,
-        teamId: options?.teamId,
         accessToken,
-        refreshToken: options?.refreshToken,
         tokenExpiresAt,
-        refreshTokenExpiresAt: options?.refreshTokenExpiresAt,
         ipAddress,
         userAgent,
-        state: options?.state,
-        codeVerifier: options?.codeVerifier,
         active: true,
         lastActivity: new Date(),
+        metadata: metadata || {},
       });
 
       const savedSession = await session.save();
@@ -118,9 +99,15 @@ export class SessionService {
 
       // Check if session is expired
       if (session.tokenExpiresAt < new Date()) {
-        await this.invalidateSession(sessionId);
+        await this.sessionModel.updateOne({ _id: sessionId }, { active: false });
         return null;
       }
+
+      // Update last activity
+      await this.sessionModel.updateOne(
+        { _id: sessionId },
+        { lastActivity: new Date() }
+      );
 
       return this.toSessionData(session);
     } catch (error) {
@@ -130,9 +117,71 @@ export class SessionService {
   }
 
   /**
-   * Find active sessions for user
+   * Invalidate session
    */
-  async getUserSessions(userId: string): Promise<SessionData[]> {
+  async invalidateSession(sessionId: string): Promise<void> {
+    try {
+      await this.sessionModel.updateOne({ _id: sessionId }, { active: false });
+      this.logger.debug(`Session ${sessionId} invalidated`);
+    } catch (error) {
+      this.logger.error(`Error invalidating session: ${(error as Error).message}`);
+      throw new Error('Failed to invalidate session');
+    }
+  }
+
+  /**
+   * Invalidate all sessions for a user
+   */
+  async invalidateUserSessions(userId: number | string): Promise<number> {
+    try {
+      const result = await this.sessionModel.updateMany(
+        { userId, active: true },
+        { active: false }
+      );
+      this.logger.debug(`Invalidated ${result.modifiedCount} sessions for user ${userId}`);
+      return result.modifiedCount;
+    } catch (error) {
+      this.logger.error(`Error invalidating user sessions: ${(error as Error).message}`);
+      throw new Error('Failed to invalidate user sessions');
+    }
+  }
+
+  /**
+   * Refresh session with new token
+   */
+  async refreshSession(
+    sessionId: string,
+    newAccessToken: string,
+    newExpiresAt: Date,
+  ): Promise<SessionData | null> {
+    try {
+      const session = await this.sessionModel.findByIdAndUpdate(
+        sessionId,
+        {
+          accessToken: newAccessToken,
+          tokenExpiresAt: newExpiresAt,
+          lastActivity: new Date(),
+          updatedAt: new Date(),
+        },
+        { new: true }
+      );
+
+      if (!session) {
+        return null;
+      }
+
+      this.logger.debug(`Session ${sessionId} refreshed`);
+      return this.toSessionData(session);
+    } catch (error) {
+      this.logger.error(`Error refreshing session: ${(error as Error).message}`);
+      throw new Error('Failed to refresh session');
+    }
+  }
+
+  /**
+   * Get all active sessions for a user
+   */
+  async getUserSessions(userId: number | string): Promise<SessionData[]> {
     try {
       const sessions = await this.sessionModel.find({
         userId,
@@ -140,7 +189,7 @@ export class SessionService {
         tokenExpiresAt: { $gt: new Date() },
       });
 
-      return sessions.map((s) => this.toSessionData(s));
+      return sessions.map((session) => this.toSessionData(session));
     } catch (error) {
       this.logger.error(`Error retrieving user sessions: ${(error as Error).message}`);
       return [];
@@ -148,203 +197,53 @@ export class SessionService {
   }
 
   /**
-   * Update session activity timestamp
-   */
-  async updateSessionActivity(sessionId: string): Promise<void> {
-    try {
-      await this.sessionModel.updateOne(
-        { _id: new Types.ObjectId(sessionId), active: true },
-        { lastActivity: new Date() },
-      );
-    } catch (error) {
-      this.logger.error(`Error updating session activity: ${(error as Error).message}`);
-    }
-  }
-
-  /**
-   * Refresh session tokens
-   */
-  async refreshSession(
-    sessionId: string,
-    newAccessToken: string,
-    tokenExpiresAt: Date,
-    newRefreshToken?: string,
-    refreshTokenExpiresAt?: Date,
-  ): Promise<SessionData | null> {
-    try {
-      const session = await this.sessionModel.findById(sessionId);
-
-      if (!session) {
-        return null;
-      }
-
-      session.accessToken = newAccessToken;
-      session.tokenExpiresAt = tokenExpiresAt;
-      session.lastActivity = new Date();
-
-      if (newRefreshToken) {
-        session.refreshToken = newRefreshToken;
-      }
-
-      if (refreshTokenExpiresAt) {
-        session.refreshTokenExpiresAt = refreshTokenExpiresAt;
-      }
-
-      const updatedSession = await session.save();
-      this.logger.debug(`Session refreshed: ${sessionId}`);
-
-      return this.toSessionData(updatedSession);
-    } catch (error) {
-      this.logger.error(`Error refreshing session: ${(error as Error).message}`);
-      return null;
-    }
-  }
-
-  /**
-   * Invalidate session (logout)
-   */
-  async invalidateSession(sessionId: string): Promise<void> {
-    try {
-      await this.sessionModel.updateOne(
-        { _id: new Types.ObjectId(sessionId) },
-        { active: false, updatedAt: new Date() },
-      );
-
-      this.logger.debug(`Session invalidated: ${sessionId}`);
-    } catch (error) {
-      this.logger.error(`Error invalidating session: ${(error as Error).message}`);
-    }
-  }
-
-  /**
-   * Invalidate all sessions for user (e.g., password change)
-   */
-  async invalidateUserSessions(userId: string, exceptSessionId?: string): Promise<number> {
-    try {
-      const query: Record<string, any> = { userId, active: true };
-
-      if (exceptSessionId) {
-        query._id = { $ne: new Types.ObjectId(exceptSessionId) };
-      }
-
-      const result = await this.sessionModel.updateMany(query, {
-        active: false,
-        updatedAt: new Date(),
-      });
-
-      this.logger.debug(
-        `Invalidated ${result.modifiedCount} sessions for user ${userId}`,
-      );
-
-      return result.modifiedCount;
-    } catch (error) {
-      this.logger.error(`Error invalidating user sessions: ${(error as Error).message}`);
-      return 0;
-    }
-  }
-
-  /**
-   * Get session activity for audit purposes
-   */
-  async getSessionActivity(sessionId: string): Promise<{
-    createdAt: Date;
-    lastActivity: Date;
-    duration: number;
-    active: boolean;
-  } | null> {
-    try {
-      const session = await this.sessionModel.findById(sessionId);
-
-      if (!session) {
-        return null;
-      }
-
-      const duration =
-        session.lastActivity.getTime() - session.createdAt.getTime();
-
-      return {
-        createdAt: session.createdAt,
-        lastActivity: session.lastActivity,
-        duration,
-        active: session.active,
-      };
-    } catch (error) {
-      this.logger.error(`Error getting session activity: ${(error as Error).message}`);
-      return null;
-    }
-  }
-
-  /**
-   * Cleanup expired sessions (runs periodically)
+   * Start periodic session cleanup
    */
   private startSessionCleanup(): void {
-    const cleanupInterval = this.configService.get<number>(
-      'auth.sessionCleanupInterval',
-    ) || 3600000; // 1 hour default
-
-    this.sessionCleanupInterval = setInterval(() => {
-      this.cleanupExpiredSessions();
-    }, cleanupInterval);
-
-    this.logger.debug(
-      `Session cleanup scheduled every ${cleanupInterval / 1000} seconds`,
-    );
-  }
-
-  /**
-   * Remove expired sessions from database
-   */
-  private async cleanupExpiredSessions(): Promise<void> {
-    try {
-      const result = await this.sessionModel.deleteMany({
-        $or: [
-          { tokenExpiresAt: { $lt: new Date() } },
-          {
-            refreshTokenExpiresAt: {
-              $lt: new Date(),
-            },
-          },
-        ],
-      });
-
-      if (result.deletedCount > 0) {
-        this.logger.debug(
-          `Cleaned up ${result.deletedCount} expired sessions`,
-        );
+    // Clean up expired sessions every hour
+    this.sessionCleanupInterval = setInterval(async () => {
+      try {
+        const result = await this.sessionModel.deleteMany({
+          tokenExpiresAt: { $lt: new Date() },
+        });
+        this.logger.debug(`Cleaned up ${result.deletedCount} expired sessions`);
+      } catch (error) {
+        this.logger.error(`Error cleaning up sessions: ${(error as Error).message}`);
       }
-    } catch (error) {
-      this.logger.error(`Error cleaning up expired sessions: ${(error as Error).message}`);
-    }
+    }, 60 * 60 * 1000); // 1 hour
   }
 
   /**
-   * Cleanup on module destroy
+   * Stop session cleanup
    */
-  onModuleDestroy(): void {
+  stopSessionCleanup(): void {
     if (this.sessionCleanupInterval) {
       clearInterval(this.sessionCleanupInterval);
     }
   }
 
   /**
-   * Convert MongoDB document to SessionData
+   * Convert Mongoose document to SessionData
    */
-  private toSessionData(doc: any): SessionData {
+  private toSessionData(session: any): SessionData {
     return {
-      _id: doc._id?.toString(),
-      userId: doc.userId,
-      teamId: doc.teamId,
-      accessToken: doc.accessToken,
-      refreshToken: doc.refreshToken,
-      tokenExpiresAt: doc.tokenExpiresAt,
-      refreshTokenExpiresAt: doc.refreshTokenExpiresAt,
-      lastActivity: doc.lastActivity,
-      ipAddress: doc.ipAddress,
-      userAgent: doc.userAgent,
-      state: doc.state,
-      codeVerifier: doc.codeVerifier,
-      active: doc.active,
-      createdAt: doc.createdAt,
+      _id: session._id?.toString(),
+      userId: session.userId,
+      accessToken: session.accessToken,
+      tokenExpiresAt: session.tokenExpiresAt,
+      lastActivity: session.lastActivity,
+      ipAddress: session.ipAddress,
+      userAgent: session.userAgent,
+      active: session.active,
+      createdAt: session.createdAt,
+      metadata: session.metadata || {},
     };
+  }
+
+  /**
+   * Destroy cleanup resources
+   */
+  onModuleDestroy(): void {
+    this.stopSessionCleanup();
   }
 }

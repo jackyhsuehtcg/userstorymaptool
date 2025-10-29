@@ -6,15 +6,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { TcrtOAuthService } from './services/tcrt-oauth.service';
+import { TcrtDirectAuthService } from './services/tcrt-direct-auth.service';
+import { TcrtTeamsSyncService } from './services/tcrt-teams-sync.service';
 import { SessionService, SessionSchema } from './services/session.service';
 import { RolesGuard } from './guards/roles.guard';
 import { AuditService } from '../audit/services/audit.service';
 
 /**
  * Authentication Module
- * Handles OAuth/OIDC integration with TCRT, session management,
- * JWT token generation, and role-based access control
+ * Handles TCRT direct login (JWT-based), session management,
+ * team synchronization, and role-based access control
  */
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { AuditService } from '../audit/services/audit.service';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('jwt.secret') || 'default-secret-key',
         signOptions: {
-          expiresIn: configService.get('jwt.expiresIn') || '1h',
+          expiresIn: configService.get('jwt.expiresIn') || '7d',
         },
       }),
     }),
@@ -39,11 +40,12 @@ import { AuditService } from '../audit/services/audit.service';
   providers: [
     AuthService,
     JwtStrategy,
-    TcrtOAuthService,
+    TcrtDirectAuthService,
+    TcrtTeamsSyncService,
     SessionService,
     RolesGuard,
     AuditService,
   ],
-  exports: [AuthService, SessionService, RolesGuard],
+  exports: [AuthService, SessionService, RolesGuard, TcrtDirectAuthService, TcrtTeamsSyncService],
 })
 export class AuthModule {}
