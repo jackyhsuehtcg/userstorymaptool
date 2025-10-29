@@ -3,6 +3,8 @@
     "nodeSaved": "Node saved",
     "nodeDeleted": "Node deleted",
     "nodeAdded": "Node added",
+    "nodeCreated": "Node created successfully",
+    "childNodeCreated": "Child node created successfully",
     "edgeAdded": "Edge added",
     "edgeDeleted": "Edge deleted",
     "importSuccess": "Import successful",

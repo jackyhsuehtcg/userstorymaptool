@@ -3,6 +3,8 @@
     "nodeSaved": "節點已保存",
     "nodeDeleted": "節點已刪除",
     "nodeAdded": "節點已新增",
+    "nodeCreated": "節點建立成功",
+    "childNodeCreated": "子節點建立成功",
     "edgeAdded": "關係已新增",
     "edgeDeleted": "關係已刪除",
     "importSuccess": "匯入成功",

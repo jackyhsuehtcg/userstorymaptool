@@ -15,19 +15,44 @@ export const Toolbar: React.FC = () => {
   const { t } = useTranslation('ui');
   const isLoading = useMapStore((state) => state.isLoading);
   const addNode = useMapStore((state) => state.addNode);
+  const addEdge = useMapStore((state) => state.addEdge);
   const reset = useMapStore((state) => state.reset);
+  const selectedNodeId = useMapStore((state) => state.selectedNodeId);
+  const getNodeById = useMapStore((state) => state.getNodeById);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleAddNode = () => {
+    const newNodeId = `node-${Date.now()}`;
+    const selectedNode = selectedNodeId ? getNodeById(selectedNodeId) : undefined;
+
     const newNode = {
-      id: `node-${Date.now()}`,
-      teamId: '',
-      summary: 'New Node',
+      id: newNodeId,
+      teamId: selectedNode?.teamId || '',
+      summary: t('editPanel.summaryPlaceholder'),
       description: '',
       ticketLabels: [],
+      parentId: selectedNodeId,
     };
+
     addNode(newNode);
-    notifySuccess('Node added successfully');
+
+    // Create edge from parent to new node if parent exists
+    if (selectedNodeId) {
+      const edgeId = `${selectedNodeId}-${newNodeId}`;
+      addEdge({
+        id: edgeId,
+        source: selectedNodeId,
+        target: newNodeId,
+        type: 'tree',
+      });
+      notifySuccess(t('messages:notifications.childNodeCreated', {
+        defaultValue: 'Child node created successfully',
+      }));
+    } else {
+      notifySuccess(t('messages:notifications.nodeCreated', {
+        defaultValue: 'Node created successfully',
+      }));
+    }
   };
 
   const handleClearAll = () => {
