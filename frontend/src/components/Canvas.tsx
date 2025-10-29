@@ -7,6 +7,7 @@ import {
   useNodesState,
   useEdgesState,
   useReactFlow,
+  ReactFlowProvider,
   type Connection,
   type Node,
   type Edge,
@@ -22,7 +23,11 @@ const nodeTypes = {
   storyNode: NodeCard,
 };
 
-export const Canvas: React.FC = () => {
+/**
+ * Inner Canvas Component
+ * Contains the ReactFlow visualization (must be inside ReactFlowProvider)
+ */
+const CanvasInner: React.FC = () => {
   const nodes = useMapStore((state) => state.nodes);
   const edges = useMapStore((state) => state.edges);
   const selectedNodeId = useMapStore((state) => state.selectedNodeId);
@@ -187,5 +192,17 @@ export const Canvas: React.FC = () => {
         </div>
       </ReactFlow>
     </div>
+  );
+};
+
+/**
+ * Canvas Component
+ * Wraps the inner canvas with ReactFlowProvider
+ */
+export const Canvas: React.FC = () => {
+  return (
+    <ReactFlowProvider>
+      <CanvasInner />
+    </ReactFlowProvider>
   );
 };
