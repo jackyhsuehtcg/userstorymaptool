@@ -39,3 +39,6 @@ temp/
 
 # Cache
 .cache/
+
+# Serena AI memories
+.serena/
