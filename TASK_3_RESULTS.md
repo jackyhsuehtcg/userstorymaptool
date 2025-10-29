@@ -10,14 +10,14 @@
 - ✅ 深藍色背景，專業風格
 - ✅ TCRT 認證集成
 
-### 2️⃣ 空地圖頁面 (Map Page)
+### 2️⃣ 地圖頁面 (Map Page) - 完整翻譯版本
 **URL**: `http://localhost:8787/map`
-- ✅ **頂部工具欄**
-  - 添加節點按鈕 (toolbar.addNode)
-  - 導入按鈕 (toolbar.import)
-  - 導出按鈕 (toolbar.export)
-  - 清空按鈕 (toolbar.clearAll)
-  - 語言切換器 (中文簡體)
+- ✅ **頂部工具欄** (完整中文翻譯)
+  - "+ 新增節點" (Add Node)
+  - "匯入" (Import)
+  - "匯出" (Export)
+  - "清除全部" (Clear All)
+  - 語言切換器 (現在顯示 "繁體中文")
 
 - ✅ **左側畫布區域**
   - React Flow 畫布（灰色網格背景）
@@ -35,17 +35,17 @@
   - 右下角位置
   - 快速導航整個樹狀圖
 
-- ✅ **右側搜索面板** (Search Panel)
-  - 全文搜索 (searchPanel.fullText)
-  - 團隊篩選 (searchPanel.team)
-  - 票證標籤篩選 (searchPanel.ticketLabel)
-  - 日期範圍篩選 (searchPanel.dateRange)
-  - 父層節點篩選 (searchPanel.parentNode)
-  - 搜索按鈕 (searchPanel.search)
-  - 清除按鈕 (searchPanel.clear)
+- ✅ **右側搜索面板** (Search Panel) - 完整中文翻譯
+  - "全文搜尋" (Full Text Search)
+  - "團隊" (Team Filter)
+  - "票證" (Ticket Labels)
+  - "時間範圍" (Date Range)
+  - "父節點" (Parent Node)
+  - "搜尋" 按鈕 (Search)
+  - "清除" 按鈕 (Clear)
 
-- ✅ **編輯面板** (Edit Panel)
-  - "請選擇節點以編輯" (editPanel.selectNode)
+- ✅ **編輯面板** (Edit Panel) - 完整中文翻譯
+  - "請選擇節點進行編輯" (Select a node to edit)
   - 節點未選擇時顯示提示
 
 ### 3️⃣ 示範頁面 (Demo Page)
