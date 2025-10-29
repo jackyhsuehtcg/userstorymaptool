@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faUpload, faDownload, faTrash, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useMapStore } from '../stores/mapStore';
 import { notifySuccess, notifyInfo } from '../stores/notificationStore';
+import { generateNodeId } from '../utils/id';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import './Toolbar.scss';
 
@@ -22,7 +23,7 @@ export const Toolbar: React.FC = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleAddNode = () => {
-    const newNodeId = `node-${Date.now()}`;
+    const newNodeId = generateNodeId();
     const selectedNode = selectedNodeId ? getNodeById(selectedNodeId) : undefined;
 
     const newNode = {
