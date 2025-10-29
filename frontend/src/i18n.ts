@@ -74,7 +74,7 @@ i18n
 
     // React settings
     react: {
-      // Enable suspense for loading translations
+      // Disable suspense since we're using useSuspense: false in init
       useSuspense: false,
       // Bind events for language change
       bindI18n: 'languageChanged loaded',
@@ -82,7 +82,10 @@ i18n
     },
 
     // Load translations on initialization
-    load: 'languageOnly',
+    load: 'currentOnly',
+
+    // Preload languages
+    preload: ['en-US', 'zh-CN'],
   });
 
 export default i18n;
