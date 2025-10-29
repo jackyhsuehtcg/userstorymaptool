@@ -24,12 +24,12 @@
   - 支持縮放、平移
   - 支持拖放節點
 
-- ✅ **畫布控制按鈕** (Canvas Controls)
+- ✅ **畫布控制按鈕** (Canvas Controls - 統一風格)
   - 🔍 放大 (Zoom In)
   - 🔍 縮小 (Zoom Out)
-  - 🔲 適配視圖 (Fit View)
+  - ⊡ 適配視圖 (Fit View - 集成到 Controls)
   - 🔓 切換交互 (Toggle Interactivity)
-  - ⊡ 自定義 Fit 按鈕 (我們實現的)
+  - ⊡ 小地圖切換 (MiniMap Toggle)
 
 - ✅ **小地圖** (MiniMap)
   - 右下角位置
@@ -66,6 +66,14 @@
     - 800+ 行代碼
     - 680+ 行 SCSS
     - 0 個 TypeScript 錯誤
+
+## 🎯 最近改進 (2025-10-29)
+
+### UI 統一風格改進
+- ✅ **Fit 按鈕集成**: 從獨立的 canvas-controls 組件整合進 React Flow Controls
+- ✅ **風格統一**: 所有畫布控制按鈕現在使用相同的樣式和間距
+- ✅ **代碼簡化**: 移除了 48 行不必要的自定義樣式代碼
+- ✅ **使用 ControlButton**: 利用 React Flow 提供的官方 ControlButton 組件
 
 ## ✨ Task 3 實現的功能
 
@@ -275,6 +283,18 @@ npm run build
 ## 📝 提交歷史
 
 ```
+Commit: 8cea82c
+Message: refactor: integrate Fit button into React Flow Controls for unified styling
+
+Commit: e238330
+Message: docs: update Task 3 documentation with verified translation fixes
+
+Commit: 8f90507
+Message: fix: correct i18n translation loading and add missing translation keys
+
+Commit: b9719dc
+Message: docs: add Task 3 results summary with screenshots and feature checklist
+
 Commit: f861a2d
 Message: fix: wrap Canvas with ReactFlowProvider for proper React Flow context
 
