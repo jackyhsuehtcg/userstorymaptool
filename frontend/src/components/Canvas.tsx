@@ -3,6 +3,7 @@ import {
   ReactFlow,
   Background,
   Controls,
+  ControlButton,
   MiniMap,
   useNodesState,
   useEdgesState,
@@ -177,19 +178,15 @@ const CanvasInner: React.FC = () => {
           gap={16}
           style={{ backgroundColor: '#fafafa' }}
         />
-        <Controls />
-        <MiniMap />
-
-        {/* Custom fit-to-screen button */}
-        <div className="canvas-controls">
-          <button
-            className="fit-button"
+        <Controls>
+          <ControlButton
             onClick={handleFitToScreen}
-            title="Fit to Screen (Ctrl+Shift+1)"
+            title="Fit View"
           >
-            ⊡ Fit
-          </button>
-        </div>
+            ⊡
+          </ControlButton>
+        </Controls>
+        <MiniMap />
       </ReactFlow>
     </div>
   );
