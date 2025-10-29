@@ -11,10 +11,23 @@
 - **資料結構**: React Flow 的 `nodes` 與 `edges` 陣列，搭配來自權限系統 (TCRT) 的 `teams` 清單
 - **多語系框架**: react-i18next (或等效方案)，翻譯資源以 JSON 檔存於 `locales/<lang>.json`
 - **權限與外部依賴**: 整合 TCRT (Test Case Repo Tool with Permission，路徑 `/Users/hideman/code/test_case_repo_tool_with_permission`) 的身份驗證與授權模組
+  - **TCRT 服務位置**: `http://localhost:9999` (開發環境)
+  - **認證方式**: JWT Bearer Token (不使用 OAuth2/OIDC)
+  - **TCRT API 端點**:
+    * `POST /api/auth/challenge` - 取得登入 challenge
+    * `POST /api/auth/login` - 使用者登入，取得 JWT token
+    * `POST /api/auth/logout` - 登出並撤銷 token
+    * `GET /api/auth/me` - 取得目前使用者資訊與權限
+    * `POST /api/auth/validate-token` - 驗證 token 有效性
+  - **TCRT 使用者角色**: SUPER_ADMIN, ADMIN, USER, VIEWER
+  - **角色對應至 Story Map**: 
+    * SUPER_ADMIN → storymap.admin
+    * ADMIN/USER → storymap.editor
+    * VIEWER → storymap.viewer
 - **後端框架**: NestJS (Node.js + TypeScript)，採模組化架構整合認證、授權、MongoDB 操作
 - **外部 API**: 提供 RESTful API 供外部系統讀取/更新 user story map，採用 API Token 驗證
 - **資料庫**: MongoDB (建議使用 replica set)，管理 user story nodes、edges、audit logs、API tokens 等資料
-- **設定檔**: 以 YAML (`config/default.yaml`, `config/{env}.yaml`) 管理環境參數，包含 MongoDB 連線、TCRT OAuth、API Token 設定等
+- **設定檔**: 以 YAML (`config/default.yaml`, `config/{env}.yaml`) 管理環境參數，包含 MongoDB 連線、TCRT 登入端點、API Token 設定等
 - **版本控制**: `.gitignore` 必須排除所有敏感與臨時檔 (例如 `config/*.yaml`, `*.env`, `logs/`, `tmp/`)；僅提供範本檔 `config/default.example.yaml` 供開發者複製使用
 - **認證介面**: 提供登入/登出 UI，並顯示來自 TCRT 的個人檔案資訊 (姓名、Email、角色)
 
@@ -274,61 +287,133 @@ ui:
 
 ### 8. 權限與 TCRT 整合
 
+**TCRT 系統資訊：**
+- TCRT 位置：`/Users/hideman/code/test_case_repo_tool_with_permission`
+- TCRT API Base URL：`http://localhost:9999/api`
+- 認證方式：JWT Bearer Token (不使用 OAuth2/OIDC)
+- 資料庫：SQLite (`test_case_repo.db`)
+
 #### 場景 8.0: 登入介面
 **Given** 使用者尚未登入  
 **When** 造訪系統首頁  
-**Then** 顯示登入頁，包含「以 TCRT 帳號登入」按鈕與權限說明  
-**And** 點擊後導向 TCRT 的 OAuth2/OIDC 授權流程  
+**Then** 顯示登入頁，包含「以 TCRT 帳號登入」表單（帳號、密碼欄位）與權限說明  
+**And** 表單提交時，將帳號與密碼傳送至後端登入端點  
 **And** 登入頁需支援多語系文案與錯誤提示  
 
-#### 場景 8.1: 身份驗證流程
+#### 場景 8.1: 身份驗證流程（基於 TCRT 實際實作）
 **Given** 使用者造訪系統且尚未登入  
 **When** 請求任何受保護頁面  
-**Then** 系統應導向 TCRT 的登入頁 (如 `/auth/login`)  
-**And** 登入成功後，TCRT 透過 OAuth2/OIDC callback 將使用者導回本系統，並提供包含使用者資訊與角色的存取憑證 (JWT)  
-**And** 本系統應驗證憑證簽章與有效期限，建立本地 session  
+**Then** 系統應導向本系統的登入頁（呈現 TCRT 帳號登入表單）  
+**And** 使用者提交帳號密碼後，後端必須呼叫 TCRT 的認證 API：
+  1. `POST /api/auth/challenge` - 取得登入 challenge（可選，支援加密登入）
+  2. `POST /api/auth/login` - 使用帳號密碼登入，取得 JWT token
+**And** TCRT 登入 API 回應格式：
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "token_type": "bearer",
+  "expires_in": 604800,
+  "user_info": {
+    "user_id": 5,
+    "username": "jackyhsueh",
+    "email": "cplus.jack@gmail.com",
+    "full_name": "Jacky Hsueh",
+    "role": "admin",
+    "is_active": true
+  }
+}
+```
+**And** 本系統應：
+  - 儲存 TCRT 的 JWT token 用於後續 TCRT API 呼叫
+  - 建立本地 session 或產生新的內部 JWT token（包含 user_id, username, role）
+  - 將 TCRT token 與本地 session 關聯，以便驗證與同步
+**And** 驗證失敗時回傳 TCRT 的錯誤訊息並禁止建立 session  
 
-#### 場景 8.2: 授權與角色對應
+#### 場景 8.2: 授權與角色對應（基於 TCRT 實際角色）
 **Given** 使用者已登入  
-**When** TCRT 回傳角色清單 (例如 `storymap.admin`, `storymap.editor`, `storymap.viewer`)  
-**Then** 本系統應根據角色授權：  
-- `storymap.admin`: 可編輯節點、管理跨邊、匯入/匯出、存取 API Token 管理  
-- `storymap.editor`: 可編輯節點與跨邊，但無法管理 API Token  
-- `storymap.viewer`: 僅可檢視與匯出 JSON  
-**And** 若使用者缺少任何 `storymap.*` 角色，顯示無權存取訊息  
+**When** TCRT 回傳使用者角色（role 欄位）  
+**Then** 本系統應根據 TCRT 角色進行對應與授權：
+
+**TCRT 角色對應：**
+- `SUPER_ADMIN` (TCRT 超級管理員) → `storymap.admin`
+- `ADMIN` (TCRT 團隊管理員) → `storymap.editor`
+- `USER` (TCRT 一般使用者) → `storymap.editor`
+- `VIEWER` (TCRT 檢視者) → `storymap.viewer`
+
+**Story Map 權限規則：**
+- `storymap.admin`: 可編輯節點、管理跨邊、匯入/匯出、存取 API Token 管理
+- `storymap.editor`: 可編輯節點與跨邊，但無法管理 API Token
+- `storymap.viewer`: 僅可檢視與匯出 JSON
+**And** 系統需在登入時自動進行角色對應，不需要在 TCRT 設定額外的 `storymap.*` 角色  
 
 #### 場景 8.3: 個人檔案展示
 **Given** 使用者已登入  
 **When** 點擊導覽列中的個人頭像或名稱  
-**Then** 開啟個人檔案面板，顯示 TCRT 提供的姓名、Email、角色列表與最後登入時間  
-**And** 提供「管理我的帳號 (前往 TCRT)」連結  
-**And** 若 TCRT token 內含頭像 URL，顯示頭像；否則顯示預設圖示  
+**Then** 開啟個人檔案面板，顯示：
+- 使用者名稱 (username)
+- Email（若有提供）
+- 全名 (full_name, 若有提供)
+- TCRT 角色 (role: SUPER_ADMIN/ADMIN/USER/VIEWER)
+- Story Map 權限級別（依角色對應）
+**And** 提供「前往 TCRT 管理我的帳號」連結（開啟 `http://localhost:9999`）  
+**And** 顯示預設頭像圖示（TCRT 目前未提供頭像 URL）  
 
-#### 場景 8.4: 團隊資料同步
+#### 場景 8.4: 團隊資料同步（基於 TCRT 實際 API）
 **Given** 使用者登入後  
 **When** 系統需顯示團隊下拉選單或團隊列表  
-**Then** 應向 TCRT 呼叫 `GET /api/teams` (攜帶登入後取得的 access token)  
+**Then** 應向 TCRT 呼叫 `GET /api/auth/me`（攜帶登入後取得的 Bearer token）
+**And** API 回應格式：
+```json
+{
+  "user_id": 5,
+  "username": "jackyhsueh",
+  "email": "cplus.jack@gmail.com",
+  "full_name": "Jacky Hsueh",
+  "role": "admin",
+  "is_active": true,
+  "permissions": {
+    "user_id": 5,
+    "role": "admin",
+    "accessible_teams": [9],
+    "team_permissions": {},
+    "is_super_admin": false,
+    "is_admin": true
+  },
+  "accessible_teams": [9]
+}
+```
+**And** 從 `accessible_teams` 取得使用者可存取的團隊 ID 列表
+**And** 若需要團隊詳細資料（名稱、描述），需額外查詢 TCRT 的團隊 API 或資料庫
 **And** 將結果快取於記憶體，最多保留 10 分鐘  
 **And** 若使用者觸發「重新同步」按鈕，應強制重新呼叫 API  
 
-#### 場景 8.5: 登出流程
+#### 場景 8.5: 登出流程（基於 TCRT 實際 API）
 **Given** 使用者已登入  
 **When** 點擊「登出」按鈕  
 **Then** 系統清除本地 session、localStorage 快取與快照  
-**And** 導向 TCRT 的登出端點完成 SSO 登出，再返回登入頁  
-**And** 顯示確認訊息提示使用者已成功登出  
+**And** 呼叫 TCRT 的登出端點 `POST /api/auth/logout`（攜帶 Bearer token）讓遠端 session 失效
+**And** TCRT 登出成功後回應：`{ "message": "成功登出" }`
+**And** 返回登入頁並顯示確認訊息提示使用者已成功登出  
+**And** 若登出 API 失敗，仍需清除本地 session 但提示遠端登出失敗  
 
 #### 場景 8.6: 權限失效處理
 **Given** 使用者 session 仍存在  
-**When** 後端 API 回應 401/403 (例如 access token 過期)  
-**Then** 前端應清除本地 session，導向 TCRT 重新登入  
+**When** 後端 API 回應 401 (Unauthorized) - TCRT token 逾期或被撤銷
+**Then** 前端應清除本地 session，導向登入頁重新驗證 TCRT 帳號  
 **And** 未儲存的編輯內容需提示使用者先匯出或暫存  
+**And** 使用 `POST /api/auth/validate-token` 或 `GET /api/auth/me` 來驗證 token 有效性  
 
 #### 場景 8.7: 審計與記錄
 **Given** 使用者對節點或跨邊進行增刪改  
 **When** 提交變更  
-**Then** 系統應在本地紀錄操作日誌，內容包含使用者 ID (來自 TCRT token)、時間戳、操作描述  
-**And** 重要操作 (匯入、API Token 發放) 應同步呼叫 TCRT 的審計 API (若可用)  
+**Then** 系統應在本地紀錄操作日誌，內容包含：
+- 使用者 ID (user_id, 來自 TCRT token)
+- 使用者名稱 (username)
+- 時間戳
+- 操作描述（建立/更新/刪除節點或跨邊）
+- IP 位址與 User Agent
+**And** 重要操作（匯入、API Token 發放、大量變更）應記錄到 MongoDB `auditLogs` 集合
+**And** 可選：若 TCRT 提供審計 API，可同步寫入（目前 TCRT 的審計系統為內部使用）  
 
 - **Bootstrap 核心**: 以 Bootstrap 5.x Grid/SVG Utilities 建構佈局，沿用 TCRT 客製化樣式。
 - 左右分欄佈局，左側為圖表，右側為編輯面板。
