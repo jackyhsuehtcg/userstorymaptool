@@ -29,32 +29,6 @@
     background-color: #fafbff;
   }
 
-  /* ID Badge - Subtle Display */
-  .node-id {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 4px;
-    background-color: transparent;
-    border-radius: 3px;
-    width: fit-content;
-    font-size: 9px;
-    font-weight: 500;
-    color: #999;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 0.5px;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: #666;
-      background-color: #f5f5f5;
-    }
-
-    .id-value {
-      color: inherit;
-    }
-  }
-
   /* Summary (Main Title) */
   .node-summary {
     font-weight: 600;

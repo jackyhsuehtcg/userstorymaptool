@@ -1,7 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 import type { StoryMapNode } from '../types';
-import { getCompactId } from '../utils/id';
 import './NodeCard.scss';
 
 interface NodeCardProps {
@@ -27,11 +26,6 @@ export const NodeCard: React.FC<NodeCardProps> = ({ data, selected }) => {
       className={`story-node-card ${selected ? 'selected' : ''}`}
       title={`${node.summary}${hasDescription ? '\n\n' + node.description : ''}`}
     >
-      {/* Node ID Badge - Subtle Display */}
-      <div className="node-id" title={node.id}>
-        <span className="id-value">{getCompactId(node.id)}</span>
-      </div>
-
       {/* Node Summary (Title) */}
       <div className="node-summary">{node.summary}</div>
 
